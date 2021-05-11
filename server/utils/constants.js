@@ -7,4 +7,4 @@ const thirtyDayCookie = {
     sameSite: true
 };
 
-module.exports = { thirtyDayCookie };
+module.exports = thirtyDayCookie;
