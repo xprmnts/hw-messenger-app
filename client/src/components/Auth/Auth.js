@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { register, login } from '../../store/utils/thunkCreators';
 import AuthButton from './AuthButton';
 import AuthBranding from './AuthBranding';
+import AuthSecondaryCTA from './AuthSecondaryCTA';
 
 const styles = theme => ({
     formGrid: {
@@ -135,24 +136,10 @@ const Auth = props => {
                 justify='center'
             >
                 <Box className={props.classes.formWrapper}>
-                    <Box
-                        display={{ xs: 'none', sm: 'block' }}
-                        className={props.classes.secondaryCTAWrapper}
-                    >
-                        <Grid
-                            container
-                            item
-                            className={props.classes.secondaryCTAContainer}
-                        >
-                            <Typography color='secondary'>
-                                {secondaryCTAText}
-                            </Typography>
-
-                            <AuthButton onClick={secondaryCTARouteHandler}>
-                                {secondaryCTAButtonText}
-                            </AuthButton>
-                        </Grid>
-                    </Box>
+                    <AuthSecondaryCTA
+                        loginState={isLogin}
+                        onSecondaryCTAClick={secondaryCTARouteHandler}
+                    />
                     <Box className={props.classes.formMainContainer}>
                         <Typography className={props.classes.formTitle}>
                             {formTitleTypography}
