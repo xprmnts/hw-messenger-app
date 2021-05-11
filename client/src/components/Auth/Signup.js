@@ -89,6 +89,10 @@ const styles = theme => ({
     },
     formLayout: {
         flexDirection: 'column'
+    },
+
+    formInputStyling: {
+        margin: '0.75rem 0rem'
     }
 });
 
@@ -182,7 +186,12 @@ const Signup = props => {
                                 className={props.classes.formLayout}
                             >
                                 <Grid>
-                                    <FormControl fullWidth>
+                                    <FormControl
+                                        fullWidth
+                                        className={
+                                            props.classes.formInputStyling
+                                        }
+                                    >
                                         <TextField
                                             aria-label='username'
                                             label='Username'
@@ -193,7 +202,12 @@ const Signup = props => {
                                     </FormControl>
                                 </Grid>
                                 <Grid>
-                                    <FormControl fullWidth>
+                                    <FormControl
+                                        fullWidth
+                                        className={
+                                            props.classes.formInputStyling
+                                        }
+                                    >
                                         <TextField
                                             label='E-mail address'
                                             aria-label='e-mail address'
@@ -208,6 +222,9 @@ const Signup = props => {
                                         fullWidth
                                         error={
                                             !!formErrorMessage.confirmPassword
+                                        }
+                                        className={
+                                            props.classes.formInputStyling
                                         }
                                     >
                                         <TextField
@@ -226,6 +243,9 @@ const Signup = props => {
                                 <Grid>
                                     <FormControl
                                         fullWidth
+                                        className={
+                                            props.classes.formInputStyling
+                                        }
                                         error={
                                             !!formErrorMessage.confirmPassword
                                         }
