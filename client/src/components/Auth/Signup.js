@@ -15,12 +15,17 @@ import AuthButton from './AuthButton';
 import BackgroundImage from '../../assets/images/bg-img.png';
 
 const styles = {
-    backgroundContainer: {
+    imageContainer: {
         height: '100vh',
         backgroundRepeat: 'no-repeat',
         backgroundImage: `url(${BackgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
+    },
+    imageOverlay: {
+        background:
+            'linear-gradient(to bottom, rgba(58, 141, 255, 0.85), rgba(134, 185, 255, 0.85));',
+        height: '100vh'
     },
     formContainer: {
         flex: 1
@@ -58,8 +63,10 @@ const Signup = props => {
                 xs={false}
                 sm={4}
                 md={6}
-                className={props.classes.backgroundContainer}
-            />
+                className={props.classes.imageContainer}
+            >
+                <div className={props.classes.imageOverlay}></div>
+            </Grid>
 
             <Grid
                 container
