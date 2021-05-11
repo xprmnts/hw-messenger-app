@@ -30,20 +30,14 @@ const styles = theme => ({
     },
     tagLine: {
         fontSize: '2rem',
-        marginTop: '4rem',
+        margin: '4rem 1rem',
         color: '#FFF'
     }
 });
 
 const AuthBranding = props => {
     return (
-        <Grid
-            item
-            xs={false}
-            sm={4}
-            md={6}
-            className={props.classes.imageContainer}
-        >
+        <Grid item xs={false} sm={4} className={props.classes.imageContainer}>
             <Box display={{ xs: 'none', sm: 'block' }}>
                 <div className={props.classes.imageOverlay}>
                     <SvgIcon

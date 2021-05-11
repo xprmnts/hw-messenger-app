@@ -9,10 +9,8 @@ const styles = {
     },
     authSecondaryCTA: {
         backgroundColor: '#FFF',
-        boxShadow: [
-            '4px 4px 5px 0px rgba(0,0,0,0.1)',
-            '-4px -4px 5px 0px rgba(0,0,0,0.1)'
-        ].join(','),
+        boxShadow: '4px 4px 5px 0px rgba(0,0,0,0.1)',
+        border: '1px solid rgba(0,0,0,0.05)',
         color: '#3A8DFF',
         '&:hover': {
             backgroundColor: '#f7f7f7'

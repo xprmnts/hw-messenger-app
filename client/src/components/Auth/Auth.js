@@ -39,6 +39,7 @@ const styles = theme => ({
         justifyContent: 'center',
         marginTop: '-15rem',
         width: '75%',
+        maxWidth: '30rem',
         [theme.breakpoints.down('xs')]: {
             marginTop: '0',
             flexGrow: '0'
