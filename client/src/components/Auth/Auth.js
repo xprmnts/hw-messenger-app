@@ -102,7 +102,7 @@ const Auth = props => {
         useLocation().pathname === '/login' ? true : false
     );
     //const [isLogin, setIsLogin] = useState(true); //placeholder logic while testing
-    const { user, register } = props;
+    const { user, register, login } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
 
     const secondaryCTAText = isLogin
@@ -110,6 +110,10 @@ const Auth = props => {
         : 'Need to log in?';
 
     const secondaryCTAButtonText = isLogin ? 'Create Account' : 'Login';
+
+    const formSubmitButtonText = isLogin ? 'Login' : 'Create';
+
+    const formTitleTypography = isLogin ? 'Welcome Back!' : 'Create an account';
 
     const secondaryCTARouteHandler = () => {
         if (isLogin) {
@@ -119,6 +123,14 @@ const Auth = props => {
             history.push('/login');
             setIsLogin(true);
         }
+    };
+
+    const handleLogin = async event => {
+        event.preventDefault();
+        const username = event.target.username.value;
+        const password = event.target.password.value;
+
+        await login({ username, password });
     };
 
     const handleRegister = async event => {
@@ -197,10 +209,10 @@ const Auth = props => {
                     </Box>
                     <Box className={props.classes.formMainContainer}>
                         <Typography className={props.classes.formTitle}>
-                            Create an account
+                            {formTitleTypography}
                         </Typography>
 
-                        <form onSubmit={handleRegister}>
+                        <form onSubmit={isLogin ? handleLogin : handleRegister}>
                             <Grid
                                 container
                                 className={props.classes.formLayout}
@@ -222,20 +234,22 @@ const Auth = props => {
                                     </FormControl>
                                 </Grid>
                                 <Grid>
-                                    <FormControl
-                                        fullWidth
-                                        className={
-                                            props.classes.formInputStyling
-                                        }
-                                    >
-                                        <TextField
-                                            label='E-mail address'
-                                            aria-label='e-mail address'
-                                            type='email'
-                                            name='email'
-                                            required
-                                        />
-                                    </FormControl>
+                                    {!isLogin && (
+                                        <FormControl
+                                            fullWidth
+                                            className={
+                                                props.classes.formInputStyling
+                                            }
+                                        >
+                                            <TextField
+                                                label='E-mail address'
+                                                aria-label='e-mail address'
+                                                type='email'
+                                                name='email'
+                                                required
+                                            />
+                                        </FormControl>
+                                    )}
                                 </Grid>
                                 <Grid>
                                     <FormControl
@@ -261,29 +275,35 @@ const Auth = props => {
                                     </FormControl>
                                 </Grid>
                                 <Grid>
-                                    <FormControl
-                                        fullWidth
-                                        className={
-                                            props.classes.formInputStyling
-                                        }
-                                        error={
-                                            !!formErrorMessage.confirmPassword
-                                        }
-                                    >
-                                        <TextField
-                                            label='Confirm Password'
-                                            aria-label='confirm password'
-                                            type='password'
-                                            inputProps={{ minLength: 6 }}
-                                            name='confirmPassword'
-                                            required
-                                        />
-                                        <FormHelperText>
-                                            {formErrorMessage.confirmPassword}
-                                        </FormHelperText>
-                                    </FormControl>
+                                    {!isLogin && (
+                                        <FormControl
+                                            fullWidth
+                                            className={
+                                                props.classes.formInputStyling
+                                            }
+                                            error={
+                                                !!formErrorMessage.confirmPassword
+                                            }
+                                        >
+                                            <TextField
+                                                label='Confirm Password'
+                                                aria-label='confirm password'
+                                                type='password'
+                                                inputProps={{ minLength: 6 }}
+                                                name='confirmPassword'
+                                                required
+                                            />
+                                            <FormHelperText>
+                                                {
+                                                    formErrorMessage.confirmPassword
+                                                }
+                                            </FormHelperText>
+                                        </FormControl>
+                                    )}
                                 </Grid>
-                                <AuthButton type='submit'>Create</AuthButton>
+                                <AuthButton type='submit'>
+                                    {formSubmitButtonText}
+                                </AuthButton>
                             </Grid>
                         </form>
                     </Box>
@@ -297,11 +317,11 @@ const Auth = props => {
                             className={props.classes.secondaryCTAContainer}
                         >
                             <Typography color='secondary'>
-                                Need to log in?
+                                {secondaryCTAText}
                             </Typography>
 
-                            <AuthButton onClick={() => history.push('/login')}>
-                                Login
+                            <AuthButton onClick={secondaryCTARouteHandler}>
+                                {secondaryCTAButtonText}
                             </AuthButton>
                         </Grid>
                     </Box>
@@ -321,6 +341,9 @@ const mapDispatchToProps = dispatch => {
     return {
         register: credentials => {
             dispatch(register(credentials));
+        },
+        login: credentials => {
+            dispatch(login(credentials));
         }
     };
 };
