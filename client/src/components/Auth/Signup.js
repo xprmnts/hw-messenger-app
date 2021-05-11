@@ -37,6 +37,11 @@ const styles = {
         width: '6rem',
         height: '6rem'
     },
+    tagLine: {
+        fontSize: '2rem',
+        margin: '3rem',
+        color: '#FFF'
+    },
     formContainer: {
         flex: 1
     }
@@ -82,6 +87,14 @@ const Signup = props => {
                     >
                         <Logo />
                     </SvgIcon>
+                    <Typography
+                        align='center'
+                        className={props.classes.tagLine}
+                    >
+                        Converse with anyone
+                        <br />
+                        with any language
+                    </Typography>
                 </div>
             </Grid>
 
