@@ -5,27 +5,13 @@ import {
     Grid,
     Box,
     Typography,
-    Button,
     FormControl,
     TextField,
     FormHelperText
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import AuthButton from './AuthButton';
 import { register } from '../../store/utils/thunkCreators';
-
-const styles = {
-    authButtonSecondary: {
-        backgroundColor: '#FFF',
-        boxShadow: [
-            '4px 4px 5px 0px rgba(0,0,0,0.1)',
-            '-4px -4px 5px 0px rgba(0,0,0,0.1)'
-        ].join(','),
-        color: '#3A8DFF'
-    },
-    '&:hover': {
-        backgroundColor: '#f7f7f7'
-    }
-};
 
 const Login = props => {
     const history = useHistory();
@@ -56,14 +42,9 @@ const Login = props => {
             <Box>
                 <Grid container item>
                     <Typography>Need to log in?</Typography>
-                    <Button
-                        onClick={() => history.push('/login')}
-                        variant='contained'
-                        size='large'
-                        className={props.classes.authButtonSecondary}
-                    >
+                    <AuthButton onClick={() => history.push('/login')}>
                         Login
-                    </Button>
+                    </AuthButton>
                 </Grid>
                 <form onSubmit={handleRegister}>
                     <Grid>
@@ -123,14 +104,7 @@ const Login = props => {
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
-                        <Button
-                            type='submit'
-                            variant='contained'
-                            size='large'
-                            color='primary'
-                        >
-                            Create
-                        </Button>
+                        <AuthButton type='submit'>Create</AuthButton>
                     </Grid>
                 </form>
             </Box>
@@ -152,7 +126,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withStyles(styles)(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
