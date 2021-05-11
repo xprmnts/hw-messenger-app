@@ -33,7 +33,7 @@ const AuthSecondaryCTA = props => {
 
     return (
         <Box
-            display={{ xs: 'none', sm: 'block' }}
+            display={props.display}
             className={props.classes.secondaryCTAWrapper}
         >
             <Grid

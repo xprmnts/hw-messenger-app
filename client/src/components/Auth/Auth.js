@@ -139,6 +139,7 @@ const Auth = props => {
                     <AuthSecondaryCTA
                         loginState={isLogin}
                         onSecondaryCTAClick={secondaryCTARouteHandler}
+                        display={{ xs: 'none', sm: 'block' }}
                     />
                     <Box className={props.classes.formMainContainer}>
                         <Typography className={props.classes.formTitle}>
@@ -240,24 +241,11 @@ const Auth = props => {
                             </Grid>
                         </form>
                     </Box>
-                    <Box
+                    <AuthSecondaryCTA
                         display={{ xs: 'block', sm: 'none' }}
-                        className={props.classes.secondaryCTAWrapper}
-                    >
-                        <Grid
-                            container
-                            item
-                            className={props.classes.secondaryCTAContainer}
-                        >
-                            <Typography color='secondary'>
-                                {secondaryCTAText}
-                            </Typography>
-
-                            <AuthButton onClick={secondaryCTARouteHandler}>
-                                {secondaryCTAButtonText}
-                            </AuthButton>
-                        </Grid>
-                    </Box>
+                        loginState={isLogin}
+                        onSecondaryCTAClick={secondaryCTARouteHandler}
+                    />
                 </Box>
             </Grid>
         </Grid>
