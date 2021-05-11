@@ -7,12 +7,14 @@ import {
     Typography,
     FormControl,
     TextField,
-    FormHelperText
+    FormHelperText,
+    SvgIcon
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { register } from '../../store/utils/thunkCreators';
 import AuthButton from './AuthButton';
 import BackgroundImage from '../../assets/images/bg-img.png';
+import { ReactComponent as Logo } from '../../assets/images/bubble.svg';
 
 const styles = {
     imageContainer: {
@@ -25,7 +27,18 @@ const styles = {
     imageOverlay: {
         background:
             'linear-gradient(to bottom, rgba(58, 141, 255, 0.85), rgba(134, 185, 255, 0.85));',
-        height: '100vh'
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    iconRoot: {
+        width: '6rem',
+        height: '6rem'
+    },
+    icon: {
+        maxWidth: '4rem'
     },
     formContainer: {
         flex: 1
@@ -65,7 +78,14 @@ const Signup = props => {
                 md={6}
                 className={props.classes.imageContainer}
             >
-                <div className={props.classes.imageOverlay}></div>
+                <div className={props.classes.imageOverlay}>
+                    <SvgIcon
+                        viewBox='0 0 67 67'
+                        className={props.classes.iconRoot}
+                    >
+                        <Logo className={props.classes.icon} />
+                    </SvgIcon>
+                </div>
             </Grid>
 
             <Grid
