@@ -60,7 +60,7 @@ const styles = theme => ({
         justifyContent: 'flex-end',
         alignItems: 'center',
         marginTop: '1rem',
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('xs')]: {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center'
