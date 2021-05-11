@@ -8,12 +8,6 @@ import {
 } from '../conversations';
 import { gotUser, setFetchingStatus } from '../user';
 
-axios.interceptors.request.use(async function (config) {
-    config.headers['x-access-token'] = token;
-
-    return config;
-});
-
 // USER THUNK CREATORS
 
 export const fetchUser = () => async dispatch => {
