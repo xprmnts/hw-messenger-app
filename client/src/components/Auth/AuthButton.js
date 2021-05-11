@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
     authPrimaryCTA: {
         backgroundColor: '#3A8DFF',
-        color: '#FFF'
+        color: '#FFF',
+        alignSelf: 'center'
     },
     authSecondaryCTA: {
         backgroundColor: '#FFF',

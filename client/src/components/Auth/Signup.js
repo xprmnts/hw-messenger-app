@@ -51,7 +51,10 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: '1rem'
+        margin: '1rem',
+        [theme.breakpoints.down('xs')]: {
+            justifyContent: 'center'
+        }
     },
     secondaryCTAWrapper: {
         width: '100%'
@@ -72,13 +75,20 @@ const styles = theme => ({
         flexDirection: 'column',
         justifyContent: 'center',
         marginTop: '-15rem',
-        width: '75%'
+        width: '75%',
+        [theme.breakpoints.down('xs')]: {
+            marginTop: 'none',
+            flexGrow: '0'
+        }
     },
     formTitle: {
         fontSize: '2rem',
         [theme.breakpoints.down('xs')]: {
             textAlign: 'center'
         }
+    },
+    formLayout: {
+        flexDirection: 'column'
     }
 });
 
@@ -167,9 +177,12 @@ const Signup = props => {
                         </Typography>
 
                         <form onSubmit={handleRegister}>
-                            <Grid>
+                            <Grid
+                                container
+                                className={props.classes.formLayout}
+                            >
                                 <Grid>
-                                    <FormControl>
+                                    <FormControl fullWidth>
                                         <TextField
                                             aria-label='username'
                                             label='Username'
@@ -180,7 +193,7 @@ const Signup = props => {
                                     </FormControl>
                                 </Grid>
                                 <Grid>
-                                    <FormControl>
+                                    <FormControl fullWidth>
                                         <TextField
                                             label='E-mail address'
                                             aria-label='e-mail address'
@@ -192,6 +205,7 @@ const Signup = props => {
                                 </Grid>
                                 <Grid>
                                     <FormControl
+                                        fullWidth
                                         error={
                                             !!formErrorMessage.confirmPassword
                                         }
@@ -211,6 +225,7 @@ const Signup = props => {
                                 </Grid>
                                 <Grid>
                                     <FormControl
+                                        fullWidth
                                         error={
                                             !!formErrorMessage.confirmPassword
                                         }

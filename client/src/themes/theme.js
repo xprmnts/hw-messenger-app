@@ -21,6 +21,11 @@ export const theme = createMuiTheme({
                 margin: '1rem 3rem',
                 padding: '0.75rem 3rem'
             }
+        },
+        MuiFormControl: {
+            root: {
+                margin: '0.75rem 0rem'
+            }
         }
     },
     palette: {
