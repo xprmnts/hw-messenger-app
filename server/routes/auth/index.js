@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const { User } = require('../../db/models');
-const { thirtyDayCookie } = require('../../utils/constants');
+const thirtyDayCookie = require('../../utils/constants');
 
 router.post('/register', async (req, res, next) => {
     try {
