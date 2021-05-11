@@ -10,7 +10,22 @@ import {
     TextField,
     FormHelperText
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import { register } from '../../store/utils/thunkCreators';
+
+const styles = {
+    authButtonSecondary: {
+        backgroundColor: '#FFF',
+        boxShadow: [
+            '4px 4px 5px 0px rgba(0,0,0,0.1)',
+            '-4px -4px 5px 0px rgba(0,0,0,0.1)'
+        ].join(','),
+        color: '#3A8DFF'
+    },
+    '&:hover': {
+        backgroundColor: '#f7f7f7'
+    }
+};
 
 const Login = props => {
     const history = useHistory();
@@ -41,7 +56,12 @@ const Login = props => {
             <Box>
                 <Grid container item>
                     <Typography>Need to log in?</Typography>
-                    <Button onClick={() => history.push('/login')}>
+                    <Button
+                        onClick={() => history.push('/login')}
+                        variant='contained'
+                        size='large'
+                        className={props.classes.authButtonSecondary}
+                    >
                         Login
                     </Button>
                 </Grid>
@@ -132,4 +152,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(Login));
