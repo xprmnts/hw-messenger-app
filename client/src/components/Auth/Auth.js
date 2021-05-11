@@ -49,9 +49,7 @@ const styles = theme => ({
 
 const Auth = props => {
     const history = useHistory();
-    const [isLogin, setIsLogin] = useState(
-        useLocation().pathname === '/login' ? true : false
-    );
+    const isLogin = useLocation().pathname === '/login';
 
     const { user, register, login } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
@@ -61,10 +59,8 @@ const Auth = props => {
     const secondaryCTARouteHandler = () => {
         if (isLogin) {
             history.push('/register');
-            setIsLogin(false);
         } else {
             history.push('/login');
-            setIsLogin(true);
         }
     };
 
