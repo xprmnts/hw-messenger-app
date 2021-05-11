@@ -135,6 +135,24 @@ const Auth = props => {
                 justify='center'
             >
                 <Box className={props.classes.formWrapper}>
+                    <Box
+                        display={{ xs: 'none', sm: 'block' }}
+                        className={props.classes.secondaryCTAWrapper}
+                    >
+                        <Grid
+                            container
+                            item
+                            className={props.classes.secondaryCTAContainer}
+                        >
+                            <Typography color='secondary'>
+                                {secondaryCTAText}
+                            </Typography>
+
+                            <AuthButton onClick={secondaryCTARouteHandler}>
+                                {secondaryCTAButtonText}
+                            </AuthButton>
+                        </Grid>
+                    </Box>
                     <Box className={props.classes.formMainContainer}>
                         <Typography className={props.classes.formTitle}>
                             {formTitleTypography}
