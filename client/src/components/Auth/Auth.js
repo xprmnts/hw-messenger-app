@@ -16,6 +16,9 @@ import AuthBranding from './AuthBranding';
 import AuthSecondaryCTA from './AuthSecondaryCTA';
 
 const styles = theme => ({
+    authPage: {
+        minHeight: '60rem'
+    },
     formGrid: {
         flex: 1
     },
@@ -27,19 +30,6 @@ const styles = theme => ({
         margin: '1rem',
         [theme.breakpoints.down('xs')]: {
             justifyContent: 'center'
-        }
-    },
-    secondaryCTAWrapper: {
-        width: '100%'
-    },
-    secondaryCTAContainer: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        [theme.breakpoints.down('xs')]: {
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center'
         }
     },
     formMainContainer: {
@@ -77,12 +67,6 @@ const Auth = props => {
 
     const { user, register, login } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
-
-    const secondaryCTAText = isLogin
-        ? 'Already have an account?'
-        : 'Need to log in?';
-
-    const secondaryCTAButtonText = isLogin ? 'Create Account' : 'Login';
 
     const formSubmitButtonText = isLogin ? 'Login' : 'Create';
 
@@ -126,7 +110,7 @@ const Auth = props => {
     }
 
     return (
-        <Grid container component='main'>
+        <Grid container component='main' className={props.classes.authPage}>
             <AuthBranding />
             <Grid
                 item

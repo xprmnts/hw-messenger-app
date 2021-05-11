@@ -6,6 +6,7 @@ import { ReactComponent as Logo } from '../../assets/images/bubble.svg';
 
 const styles = theme => ({
     imageContainer: {
+        minHeight: '60rem',
         height: '100vh',
         backgroundRepeat: 'no-repeat',
         backgroundImage: `url(${BackgroundImage})`,
@@ -15,6 +16,7 @@ const styles = theme => ({
     imageOverlay: {
         background:
             'linear-gradient(to bottom, rgba(58, 141, 255, 0.85), rgba(134, 185, 255, 0.85));',
+        minHeight: '60rem',
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
