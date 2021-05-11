@@ -101,7 +101,7 @@ const Auth = props => {
     const [isLogin, setIsLogin] = useState(
         useLocation().pathname === '/login' ? true : false
     );
-    //const [isLogin, setIsLogin] = useState(true); //placeholder logic while testing
+
     const { user, register, login } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
 
