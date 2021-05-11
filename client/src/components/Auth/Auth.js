@@ -15,6 +15,13 @@ const styles = theme => ({
     formGrid: {
         flex: 1
     },
+    formTitle: {
+        fontSize: '2rem',
+        [theme.breakpoints.down('xs')]: {
+            textAlign: 'center',
+            fontSize: '1.5rem'
+        }
+    },
     formWrapper: {
         flex: 1,
         display: 'flex',
@@ -36,19 +43,6 @@ const styles = theme => ({
             marginTop: '0',
             flexGrow: '0'
         }
-    },
-    formTitle: {
-        fontSize: '2rem',
-        [theme.breakpoints.down('xs')]: {
-            textAlign: 'center'
-        }
-    },
-    formLayout: {
-        flexDirection: 'column'
-    },
-
-    formInputStyling: {
-        margin: '0.75rem 0rem'
     }
 });
 
@@ -60,8 +54,6 @@ const Auth = props => {
 
     const { user, register, login } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
-
-    //const formSubmitButtonText = isLogin ? 'Login' : 'Create';
 
     const formTitleTypography = isLogin ? 'Welcome Back!' : 'Create an account';
 

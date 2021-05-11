@@ -10,40 +10,6 @@ import { withStyles } from '@material-ui/core/styles';
 import AuthButton from './AuthButton';
 
 const styles = theme => ({
-    authPage: {
-        minHeight: '60rem'
-    },
-    formGrid: {
-        flex: 1
-    },
-    formWrapper: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '1rem',
-        [theme.breakpoints.down('xs')]: {
-            justifyContent: 'center'
-        }
-    },
-    formMainContainer: {
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        marginTop: '-15rem',
-        width: '75%',
-        [theme.breakpoints.down('xs')]: {
-            marginTop: '0',
-            flexGrow: '0'
-        }
-    },
-    formTitle: {
-        fontSize: '2rem',
-        [theme.breakpoints.down('xs')]: {
-            textAlign: 'center'
-        }
-    },
     formLayout: {
         flexDirection: 'column'
     },
