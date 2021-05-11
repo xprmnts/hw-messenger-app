@@ -16,7 +16,7 @@ import AuthButton from './AuthButton';
 import BackgroundImage from '../../assets/images/bg-img.png';
 import { ReactComponent as Logo } from '../../assets/images/bubble.svg';
 
-const styles = {
+const styles = theme => ({
     imageContainer: {
         height: '100vh',
         backgroundRepeat: 'no-repeat',
@@ -52,13 +52,21 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center'
     },
+    secondaryCTAWrapper: {
+        width: '100%'
+    },
     secondaryCTAContainer: {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginTop: '2rem'
+        marginTop: '1rem',
+        [theme.breakpoints.down('sm')]: {
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        }
     }
-};
+});
 
 const Signup = props => {
     const history = useHistory();
@@ -121,19 +129,25 @@ const Signup = props => {
                 justify='center'
             >
                 <Box className={props.classes.formContainer}>
-                    <Grid
-                        container
-                        item
-                        className={props.classes.secondaryCTAContainer}
+                    <Box
+                        display={{ xs: 'none', sm: 'block' }}
+                        className={props.classes.secondaryCTAWrapper}
                     >
-                        <Typography color='secondary'>
-                            Need to log in?
-                        </Typography>
+                        <Grid
+                            container
+                            item
+                            className={props.classes.secondaryCTAContainer}
+                        >
+                            <Typography color='secondary'>
+                                Need to log in?
+                            </Typography>
 
-                        <AuthButton onClick={() => history.push('/login')}>
-                            Login
-                        </AuthButton>
-                    </Grid>
+                            <AuthButton onClick={() => history.push('/login')}>
+                                Login
+                            </AuthButton>
+                        </Grid>
+                    </Box>
+
                     <form onSubmit={handleRegister}>
                         <Grid>
                             <Grid>
@@ -195,6 +209,24 @@ const Signup = props => {
                             <AuthButton type='submit'>Create</AuthButton>
                         </Grid>
                     </form>
+                    <Box
+                        display={{ xs: 'block', sm: 'none' }}
+                        className={props.classes.secondaryCTAWrapper}
+                    >
+                        <Grid
+                            container
+                            item
+                            className={props.classes.secondaryCTAContainer}
+                        >
+                            <Typography color='secondary'>
+                                Need to log in?
+                            </Typography>
+
+                            <AuthButton onClick={() => history.push('/login')}>
+                                Login
+                            </AuthButton>
+                        </Grid>
+                    </Box>
                 </Box>
             </Grid>
         </Grid>

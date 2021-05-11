@@ -18,7 +18,7 @@ export const theme = createMuiTheme({
         },
         MuiButton: {
             sizeLarge: {
-                margin: '0rem 3rem',
+                margin: '1rem 3rem',
                 padding: '0.75rem 3rem'
             }
         }
