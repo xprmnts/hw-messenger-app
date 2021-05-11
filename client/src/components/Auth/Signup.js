@@ -46,11 +46,12 @@ const styles = theme => ({
     formGrid: {
         flex: 1
     },
-    formContainer: {
+    formWrapper: {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '1rem'
     },
     secondaryCTAWrapper: {
         width: '100%'
@@ -59,11 +60,24 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        marginTop: '1rem',
         [theme.breakpoints.down('xs')]: {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center'
+        }
+    },
+    formMainContainer: {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: '-15rem',
+        width: '75%'
+    },
+    formTitle: {
+        fontSize: '2rem',
+        [theme.breakpoints.down('xs')]: {
+            textAlign: 'center'
         }
     }
 });
@@ -128,7 +142,7 @@ const Signup = props => {
                 className={props.classes.formGrid}
                 justify='center'
             >
-                <Box className={props.classes.formContainer}>
+                <Box className={props.classes.formWrapper}>
                     <Box
                         display={{ xs: 'none', sm: 'block' }}
                         className={props.classes.secondaryCTAWrapper}
@@ -147,68 +161,77 @@ const Signup = props => {
                             </AuthButton>
                         </Grid>
                     </Box>
+                    <Box className={props.classes.formMainContainer}>
+                        <Typography className={props.classes.formTitle}>
+                            Create an account
+                        </Typography>
 
-                    <form onSubmit={handleRegister}>
-                        <Grid>
+                        <form onSubmit={handleRegister}>
                             <Grid>
-                                <FormControl>
-                                    <TextField
-                                        aria-label='username'
-                                        label='Username'
-                                        name='username'
-                                        type='text'
-                                        required
-                                    />
-                                </FormControl>
+                                <Grid>
+                                    <FormControl>
+                                        <TextField
+                                            aria-label='username'
+                                            label='Username'
+                                            name='username'
+                                            type='text'
+                                            required
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid>
+                                    <FormControl>
+                                        <TextField
+                                            label='E-mail address'
+                                            aria-label='e-mail address'
+                                            type='email'
+                                            name='email'
+                                            required
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid>
+                                    <FormControl
+                                        error={
+                                            !!formErrorMessage.confirmPassword
+                                        }
+                                    >
+                                        <TextField
+                                            aria-label='password'
+                                            label='Password'
+                                            type='password'
+                                            inputProps={{ minLength: 6 }}
+                                            name='password'
+                                            required
+                                        />
+                                        <FormHelperText>
+                                            {formErrorMessage.confirmPassword}
+                                        </FormHelperText>
+                                    </FormControl>
+                                </Grid>
+                                <Grid>
+                                    <FormControl
+                                        error={
+                                            !!formErrorMessage.confirmPassword
+                                        }
+                                    >
+                                        <TextField
+                                            label='Confirm Password'
+                                            aria-label='confirm password'
+                                            type='password'
+                                            inputProps={{ minLength: 6 }}
+                                            name='confirmPassword'
+                                            required
+                                        />
+                                        <FormHelperText>
+                                            {formErrorMessage.confirmPassword}
+                                        </FormHelperText>
+                                    </FormControl>
+                                </Grid>
+                                <AuthButton type='submit'>Create</AuthButton>
                             </Grid>
-                            <Grid>
-                                <FormControl>
-                                    <TextField
-                                        label='E-mail address'
-                                        aria-label='e-mail address'
-                                        type='email'
-                                        name='email'
-                                        required
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid>
-                                <FormControl
-                                    error={!!formErrorMessage.confirmPassword}
-                                >
-                                    <TextField
-                                        aria-label='password'
-                                        label='Password'
-                                        type='password'
-                                        inputProps={{ minLength: 6 }}
-                                        name='password'
-                                        required
-                                    />
-                                    <FormHelperText>
-                                        {formErrorMessage.confirmPassword}
-                                    </FormHelperText>
-                                </FormControl>
-                            </Grid>
-                            <Grid>
-                                <FormControl
-                                    error={!!formErrorMessage.confirmPassword}
-                                >
-                                    <TextField
-                                        label='Confirm Password'
-                                        aria-label='confirm password'
-                                        type='password'
-                                        inputProps={{ minLength: 6 }}
-                                        name='confirmPassword'
-                                        required
-                                    />
-                                    <FormHelperText>
-                                        {formErrorMessage.confirmPassword}
-                                    </FormHelperText>
-                                </FormControl>
-                            </Grid>
-                            <AuthButton type='submit'>Create</AuthButton>
-                        </Grid>
-                    </form>
+                        </form>
+                    </Box>
                     <Box
                         display={{ xs: 'block', sm: 'none' }}
                         className={props.classes.secondaryCTAWrapper}
