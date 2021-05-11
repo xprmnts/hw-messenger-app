@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     Grid,
@@ -11,7 +11,7 @@ import {
     SvgIcon
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { register } from '../../store/utils/thunkCreators';
+import { register, login } from '../../store/utils/thunkCreators';
 import AuthButton from './AuthButton';
 import BackgroundImage from '../../assets/images/bg-img.png';
 import { ReactComponent as Logo } from '../../assets/images/bubble.svg';
@@ -96,10 +96,30 @@ const styles = theme => ({
     }
 });
 
-const Signup = props => {
+const Auth = props => {
     const history = useHistory();
+    const [isLogin, setIsLogin] = useState(
+        useLocation().pathname === '/login' ? true : false
+    );
+    //const [isLogin, setIsLogin] = useState(true); //placeholder logic while testing
     const { user, register } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
+
+    const secondaryCTAText = isLogin
+        ? 'Already have an account?'
+        : 'Need to log in?';
+
+    const secondaryCTAButtonText = isLogin ? 'Create Account' : 'Login';
+
+    const secondaryCTARouteHandler = () => {
+        if (isLogin) {
+            history.push('/register');
+            setIsLogin(false);
+        } else {
+            history.push('/login');
+            setIsLogin(true);
+        }
+    };
 
     const handleRegister = async event => {
         event.preventDefault();
@@ -167,11 +187,11 @@ const Signup = props => {
                             className={props.classes.secondaryCTAContainer}
                         >
                             <Typography color='secondary'>
-                                Need to log in?
+                                {secondaryCTAText}
                             </Typography>
 
-                            <AuthButton onClick={() => history.push('/login')}>
-                                Login
+                            <AuthButton onClick={secondaryCTARouteHandler}>
+                                {secondaryCTAButtonText}
                             </AuthButton>
                         </Grid>
                     </Box>
@@ -308,4 +328,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(Signup));
+)(withStyles(styles)(Auth));
