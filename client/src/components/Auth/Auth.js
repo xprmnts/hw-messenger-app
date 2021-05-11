@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-    Grid,
-    Box,
-    Typography,
-    FormControl,
-    TextField,
-    FormHelperText
-} from '@material-ui/core';
+import { Grid, Box, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { register, login } from '../../store/utils/thunkCreators';
-import AuthButton from './AuthButton';
 import AuthBranding from './AuthBranding';
 import AuthSecondaryCTA from './AuthSecondaryCTA';
+import AuthForm from './AuthForm';
 
 const styles = theme => ({
     authPage: {
@@ -68,7 +61,7 @@ const Auth = props => {
     const { user, register, login } = props;
     const [formErrorMessage, setFormErrorMessage] = useState({});
 
-    const formSubmitButtonText = isLogin ? 'Login' : 'Create';
+    //const formSubmitButtonText = isLogin ? 'Login' : 'Create';
 
     const formTitleTypography = isLogin ? 'Welcome Back!' : 'Create an account';
 
@@ -130,100 +123,13 @@ const Auth = props => {
                             {formTitleTypography}
                         </Typography>
 
-                        <form onSubmit={isLogin ? handleLogin : handleRegister}>
-                            <Grid
-                                container
-                                className={props.classes.formLayout}
-                            >
-                                <Grid>
-                                    <FormControl
-                                        fullWidth
-                                        className={
-                                            props.classes.formInputStyling
-                                        }
-                                    >
-                                        <TextField
-                                            aria-label='username'
-                                            label='Username'
-                                            name='username'
-                                            type='text'
-                                            required
-                                        />
-                                    </FormControl>
-                                </Grid>
-                                <Grid>
-                                    {!isLogin && (
-                                        <FormControl
-                                            fullWidth
-                                            className={
-                                                props.classes.formInputStyling
-                                            }
-                                        >
-                                            <TextField
-                                                label='E-mail address'
-                                                aria-label='e-mail address'
-                                                type='email'
-                                                name='email'
-                                                required
-                                            />
-                                        </FormControl>
-                                    )}
-                                </Grid>
-                                <Grid>
-                                    <FormControl
-                                        fullWidth
-                                        error={
-                                            !!formErrorMessage.confirmPassword
-                                        }
-                                        className={
-                                            props.classes.formInputStyling
-                                        }
-                                    >
-                                        <TextField
-                                            aria-label='password'
-                                            label='Password'
-                                            type='password'
-                                            inputProps={{ minLength: 6 }}
-                                            name='password'
-                                            required
-                                        />
-                                        <FormHelperText>
-                                            {formErrorMessage.confirmPassword}
-                                        </FormHelperText>
-                                    </FormControl>
-                                </Grid>
-                                <Grid>
-                                    {!isLogin && (
-                                        <FormControl
-                                            fullWidth
-                                            className={
-                                                props.classes.formInputStyling
-                                            }
-                                            error={
-                                                !!formErrorMessage.confirmPassword
-                                            }
-                                        >
-                                            <TextField
-                                                label='Confirm Password'
-                                                aria-label='confirm password'
-                                                type='password'
-                                                inputProps={{ minLength: 6 }}
-                                                name='confirmPassword'
-                                                required
-                                            />
-                                            <FormHelperText>
-                                                {
-                                                    formErrorMessage.confirmPassword
-                                                }
-                                            </FormHelperText>
-                                        </FormControl>
-                                    )}
-                                </Grid>
-                                <AuthButton type='submit'>
-                                    {formSubmitButtonText}
-                                </AuthButton>
-                            </Grid>
-                        </form>
+                        <AuthForm
+                            formErrorMessage={formErrorMessage}
+                            setFormErrorMessage={setFormErrorMessage}
+                            loginState={isLogin}
+                            handleRegister={handleRegister}
+                            handleLogin={handleLogin}
+                        />
                     </Box>
                     <AuthSecondaryCTA
                         display={{ xs: 'block', sm: 'none' }}
