@@ -35,11 +35,12 @@ const styles = {
     },
     iconRoot: {
         width: '6rem',
-        height: '6rem'
+        height: '6rem',
+        marginTop: '-15rem'
     },
     tagLine: {
         fontSize: '2rem',
-        margin: '3rem',
+        marginTop: '4rem',
         color: '#FFF'
     },
     formContainer: {
