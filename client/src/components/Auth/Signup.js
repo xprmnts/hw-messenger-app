@@ -43,8 +43,20 @@ const styles = {
         marginTop: '4rem',
         color: '#FFF'
     },
-    formContainer: {
+    formGrid: {
         flex: 1
+    },
+    formContainer: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    secondaryCTAContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginTop: '2rem'
     }
 };
 
@@ -81,32 +93,43 @@ const Signup = props => {
                 md={6}
                 className={props.classes.imageContainer}
             >
-                <div className={props.classes.imageOverlay}>
-                    <SvgIcon
-                        viewBox='0 0 67 67'
-                        className={props.classes.iconRoot}
-                    >
-                        <Logo />
-                    </SvgIcon>
-                    <Typography
-                        align='center'
-                        className={props.classes.tagLine}
-                    >
-                        Converse with anyone
-                        <br />
-                        with any language
-                    </Typography>
-                </div>
+                <Box display={{ xs: 'none', sm: 'block' }}>
+                    <div className={props.classes.imageOverlay}>
+                        <SvgIcon
+                            viewBox='0 0 67 67'
+                            className={props.classes.iconRoot}
+                        >
+                            <Logo />
+                        </SvgIcon>
+                        <Typography
+                            align='center'
+                            className={props.classes.tagLine}
+                        >
+                            Converse with anyone
+                            <br />
+                            with any language
+                        </Typography>
+                    </div>
+                </Box>
             </Grid>
 
             <Grid
+                item
                 container
-                className={props.classes.formContainer}
+                xs={12}
+                className={props.classes.formGrid}
                 justify='center'
             >
-                <Box>
-                    <Grid container item>
-                        <Typography>Need to log in?</Typography>
+                <Box className={props.classes.formContainer}>
+                    <Grid
+                        container
+                        item
+                        className={props.classes.secondaryCTAContainer}
+                    >
+                        <Typography color='secondary'>
+                            Need to log in?
+                        </Typography>
+
                         <AuthButton onClick={() => history.push('/login')}>
                             Login
                         </AuthButton>
