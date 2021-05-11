@@ -77,7 +77,7 @@ const styles = theme => ({
         marginTop: '-15rem',
         width: '75%',
         [theme.breakpoints.down('xs')]: {
-            marginTop: 'none',
+            marginTop: '0',
             flexGrow: '0'
         }
     },
