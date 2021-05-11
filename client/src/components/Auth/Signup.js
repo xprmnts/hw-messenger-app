@@ -37,9 +37,6 @@ const styles = {
         width: '6rem',
         height: '6rem'
     },
-    icon: {
-        maxWidth: '4rem'
-    },
     formContainer: {
         flex: 1
     }
@@ -83,7 +80,7 @@ const Signup = props => {
                         viewBox='0 0 67 67'
                         className={props.classes.iconRoot}
                     >
-                        <Logo className={props.classes.icon} />
+                        <Logo />
                     </SvgIcon>
                 </div>
             </Grid>
