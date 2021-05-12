@@ -16,31 +16,20 @@ const styles = {
 
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
-  const lastMessageRef = useRef();
+  const bottomOfMessagesContainerRef = useRef();
 
   useEffect(() => {
-    console.log(lastMessageRef);
-    if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ smooth: true });
-    }
+    bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
   });
 
   return (
     <Box className={props.classes.root}>
       {messages.map((message, index) => {
-        const lastMessage = messages.length - 1 === index;
         const time = moment(message.createdAt).format('h:mm');
-
         return message.senderId === userId ? (
-          <SenderBubble
-            ref={lastMessage ? lastMessageRef : null}
-            key={message.id}
-            text={message.text}
-            time={time}
-          />
+          <SenderBubble key={message.id} text={message.text} time={time} />
         ) : (
           <OtherUserBubble
-            ref={lastMessage ? lastMessageRef : null}
             key={message.id}
             text={message.text}
             time={time}
@@ -48,6 +37,7 @@ const Messages = (props) => {
           />
         );
       })}
+      <div ref={bottomOfMessagesContainerRef}></div>
     </Box>
   );
 };

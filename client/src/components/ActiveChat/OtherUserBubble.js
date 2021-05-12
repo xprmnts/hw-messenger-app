@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const OtherUserBubble = React.forwardRef((props, ref) => {
+const OtherUserBubble = (props) => {
   const classes = useStyles();
   const { text, time, otherUser } = props;
   return (
@@ -41,7 +41,7 @@ const OtherUserBubble = React.forwardRef((props, ref) => {
         src={otherUser.photoUrl}
         className={classes.avatar}
       ></Avatar>
-      <Box ref={ref}>
+      <Box>
         <Typography className={classes.usernameDate}>
           {otherUser.username} {time}
         </Typography>
@@ -51,6 +51,6 @@ const OtherUserBubble = React.forwardRef((props, ref) => {
       </Box>
     </Box>
   );
-});
+};
 
 export default OtherUserBubble;
