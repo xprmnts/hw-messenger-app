@@ -19,7 +19,6 @@ const Messages = props => {
     const lastMessageRef = useRef();
 
     useEffect(() => {
-        console.log(lastMessageRef);
         if (lastMessageRef.current) {
             lastMessageRef.current.scrollIntoView({ smooth: true });
         }
