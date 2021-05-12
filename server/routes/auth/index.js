@@ -33,8 +33,7 @@ router.post('/register', async (req, res, next) => {
     res.cookie('messengerAppAccessToken', token, twentyFourHourCookie);
 
     res.json({
-      ...user.dataValues,
-      token
+      ...user.dataValues
     });
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
@@ -75,8 +74,7 @@ router.post('/login', async (req, res, next) => {
       res.cookie('messengerAppAccessToken', token, twentyFourHourCookie);
 
       res.json({
-        ...user.dataValues,
-        token
+        ...user.dataValues
       });
     }
   } catch (error) {
