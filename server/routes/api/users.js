@@ -1,10 +1,10 @@
-const router = require("express").Router();
-const { User } = require("../../db/models");
-const { Op } = require("sequelize");
-const onlineUsers = require("../../onlineUsers");
+const router = require('express').Router();
+const { User } = require('../../db/models');
+const { Op } = require('sequelize');
+const onlineUsers = require('../../onlineUsers');
 
 // find users by username
-router.get("/:username", async (req, res, next) => {
+router.get('/:username', async (req, res, next) => {
   try {
     if (!req.user) {
       return res.sendStatus(401);
@@ -14,12 +14,12 @@ router.get("/:username", async (req, res, next) => {
     const users = await User.findAll({
       where: {
         username: {
-          [Op.substring]: username,
+          [Op.substring]: username
         },
         id: {
-          [Op.not]: req.user.id,
-        },
-      },
+          [Op.not]: req.user.id
+        }
+      }
     });
 
     // add online status to each user that is online

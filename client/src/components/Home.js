@@ -1,31 +1,31 @@
-import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { Grid, CssBaseline, Button } from "@material-ui/core";
-import { SidebarContainer } from "./Sidebar";
-import { ActiveChat } from "./ActiveChat";
-import { logout, fetchConversations } from "../store/utils/thunkCreators";
-import { clearOnLogout } from "../store/index";
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Grid, CssBaseline, Button } from '@material-ui/core';
+import { SidebarContainer } from './Sidebar';
+import { ActiveChat } from './ActiveChat';
+import { logout, fetchConversations } from '../store/utils/thunkCreators';
+import { clearOnLogout } from '../store/index';
 
 const styles = {
   root: {
-    height: "97vh",
-  },
+    height: '97vh'
+  }
 };
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: false
     };
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.user.id !== prevProps.user.id) {
       this.setState({
-        isLoggedIn: true,
+        isLoggedIn: true
       });
     }
   }
@@ -64,7 +64,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    conversations: state.conversations,
+    conversations: state.conversations
   };
 };
 
@@ -76,7 +76,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchConversations: () => {
       dispatch(fetchConversations());
-    },
+    }
   };
 };
 
