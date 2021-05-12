@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Sidebar } from "./index";
-import { searchUsers } from "../../store/utils/thunkCreators";
-import { clearSearchedUsers } from "../../store/conversations";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Sidebar } from './index';
+import { searchUsers } from '../../store/utils/thunkCreators';
+import { clearSearchedUsers } from '../../store/conversations';
 
 const SidebarContainer = (props) => {
   const { searchUsers, clearSearchedUsers } = props;
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = async (event) => {
-    if (event.target.value === "") {
+    if (event.target.value === '') {
       // clear searched convos from redux store
       clearSearchedUsers();
-      setSearchTerm("");
+      setSearchTerm('');
       return;
     }
     if (searchTerm.includes(event.target.value)) {
