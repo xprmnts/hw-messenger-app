@@ -1,4 +1,4 @@
-const SET_ACTIVE_CHAT = "SET_ACTIVE_CHAT";
+const SET_ACTIVE_CHAT = 'SET_ACTIVE_CHAT';
 
 export const setActiveChat = (username) => {
   return {
@@ -7,7 +7,7 @@ export const setActiveChat = (username) => {
   };
 };
 
-const reducer = (state = "", action) => {
+const reducer = (state = '', action) => {
   switch (action.type) {
     case SET_ACTIVE_CHAT: {
       return action.username;
