@@ -20,5 +20,9 @@ yarn-error.log*
 
 server/.env
 
+<<<<<<< HEAD
+.prettierrc.json
+=======
 .vscode
 
+>>>>>>> main
