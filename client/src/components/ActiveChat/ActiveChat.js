@@ -8,7 +8,11 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexGrow: 8,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    maxHeight: '100%'
+  },
+  chatHeader: {
+    minHeight: '6rem'
   },
   chatContainer: {
     marginLeft: 41,
@@ -16,7 +20,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height: '80%'
   }
 }));
 
@@ -30,6 +35,7 @@ const ActiveChat = (props) => {
       {conversation.otherUser && (
         <>
           <Header
+            className={classes.chatHeader}
             username={conversation.otherUser.username}
             online={conversation.otherUser.online || false}
           />
