@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { User } = require('../../db/models');
 const jwt = require('jsonwebtoken');
+const { User } = require('../../db/models');
+const twentyFourHourCookie = require('../../utils/constants');
 
 router.post('/register', async (req, res, next) => {
   try {
@@ -26,9 +27,13 @@ router.post('/register', async (req, res, next) => {
       process.env.SESSION_SECRET,
       { expiresIn: 86400 }
     );
+
+    // Set cookie
+
+    res.cookie('messengerAppAccessToken', token, twentyFourHourCookie);
+
     res.json({
-      ...user.dataValues,
-      token
+      ...user.dataValues
     });
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
@@ -64,9 +69,12 @@ router.post('/login', async (req, res, next) => {
         process.env.SESSION_SECRET,
         { expiresIn: 86400 }
       );
+
+      // Set cookie
+      res.cookie('messengerAppAccessToken', token, twentyFourHourCookie);
+
       res.json({
-        ...user.dataValues,
-        token
+        ...user.dataValues
       });
     }
   } catch (error) {
@@ -75,6 +83,7 @@ router.post('/login', async (req, res, next) => {
 });
 
 router.delete('/logout', (req, res, next) => {
+  res.clearCookie('messengerAppAccessToken');
   res.sendStatus(204);
 });
 
