@@ -57,6 +57,27 @@ export const logout = (id) => async (dispatch) => {
   }
 };
 
+// dummy
+export const updateConvo = async (messages, otherUser, userId) => {
+  // are there un read messages & are the messages sent by the otherUser?
+  const unreadMessageIds = [];
+
+  messages.forEach((message) => {
+    if (message.senderId !== userId && !message.readStatus) {
+      unreadMessageIds.push(message.id);
+    }
+  });
+
+  const payload = {
+    unreadMessageIds
+  };
+  // send api call to update the messages
+  const { data } = await axios.patch('/api/messages', {
+    data: payload
+  });
+  return data;
+};
+
 // CONVERSATIONS THUNK CREATORS
 
 export const fetchConversations = () => async (dispatch) => {
@@ -74,7 +95,6 @@ const saveMessage = async (body) => {
 };
 
 const sendMessage = (data, body) => {
-  console.log(data, body);
   socket.emit('new-message', {
     data,
     to: body.recipientId
