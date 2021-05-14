@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const ActiveChat = (props) => {
+const ActiveChat = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
   const conversations = useSelector((state) => state.conversations);
