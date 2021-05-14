@@ -72,9 +72,11 @@ const ChatContent = (props) => {
           >
             {latestMessageText}
           </Typography>
-          <Typography className={classes.notification}>
-            {unreadMessages.length > 100 ? '100+' : unreadMessages.length}
-          </Typography>
+          {unreadMessages.length > 0 && (
+            <Typography className={classes.notification}>
+              {unreadMessages.length > 100 ? '100+' : unreadMessages.length}
+            </Typography>
+          )}
         </Box>
       </Box>
     </Box>
