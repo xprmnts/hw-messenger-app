@@ -8,10 +8,6 @@ import {
 
 const socket = io(window.location.origin, { autoConnect: false });
 
-socket.onAny((event, ...args) => {
-  console.log(event, args);
-});
-
 socket.on('add-online-user', (id) => {
   store.dispatch(addOnlineUser(id));
 });
