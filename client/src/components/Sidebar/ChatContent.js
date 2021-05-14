@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: -0.2
   },
   previewText: {
-    fontSize: 12,
+    fontSize: '0.75rem',
     color: '#9CADC8',
     letterSpacing: -0.17,
     flexBasis: '70%',
@@ -31,12 +31,11 @@ const useStyles = makeStyles((theme) => ({
     color: '#000'
   },
   notification: {
-    height: 20,
-    width: 20,
     backgroundColor: '#3F92FF',
     margin: 'auto 1rem',
+    padding: '0.1rem 0.3rem',
     color: 'white',
-    fontSize: 10,
+    fontSize: '0.65rem',
     letterSpacing: -0.5,
     fontWeight: 'bold',
     display: 'flex',
