@@ -30,8 +30,7 @@ class Home extends Component {
       });
     }
     socket.auth = {
-      userId: prevProps.user.id,
-      username: prevProps.user.username
+      userId: prevProps.user.id
     };
     socket.connect();
   }
