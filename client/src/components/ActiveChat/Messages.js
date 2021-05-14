@@ -22,6 +22,11 @@ const Messages = (props) => {
     bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
   });
 
+  // useEffect(() => {
+  //   //TODO: implement logic to send socket message
+  //   // to update read status if valid
+  // }, [messages]);
+
   return (
     <Box className={props.classes.root}>
       {messages.map((message, index) => {
