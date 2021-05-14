@@ -1,3 +1,4 @@
+import socket from '../socket';
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
@@ -28,6 +29,11 @@ class Home extends Component {
         isLoggedIn: true
       });
     }
+    socket.auth = {
+      userId: prevProps.user.id,
+      username: prevProps.user.username
+    };
+    socket.connect();
   }
 
   componentDidMount() {
