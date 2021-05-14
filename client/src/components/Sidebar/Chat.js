@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import { BadgeAvatar, ChatContent } from '../Sidebar';
 import { makeStyles } from '@material-ui/core/styles';
 import { setActiveChat } from '../../store/activeConversation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,7 +20,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Chat = (props) => {
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
   const classes = useStyles();
+  const currentUserId = useSelector((state) => state.user.id);
   const otherUser = props.conversation.otherUser;
 
   const dispatch = useDispatch();
@@ -28,6 +31,16 @@ const Chat = (props) => {
   const handleClick = async (conversation) => {
     await dispatch(setActiveChat(conversation.otherUser.username));
   };
+
+  useEffect(() => {
+    const result = props.conversation.messages.filter(
+      (message) => message.senderId !== currentUserId && !message.readStatus
+    );
+    setUnreadMessages(result);
+
+    // last message in conovo isn't the current users' and it hasn't been read
+    // set lastMessageStatus to fals
+  }, [props.conversation, currentUserId]);
 
   return (
     <Box
@@ -40,7 +53,10 @@ const Chat = (props) => {
         online={otherUser.online}
         sidebar={true}
       />
-      <ChatContent conversation={props.conversation} />
+      <ChatContent
+        conversation={props.conversation}
+        unreadMessages={unreadMessages}
+      />
     </Box>
   );
 };
