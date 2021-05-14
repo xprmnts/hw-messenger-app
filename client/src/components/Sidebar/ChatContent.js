@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -54,7 +55,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatContent = (props) => {
   const classes = useStyles();
-
+  const otherActiveChatUsername = useSelector(
+    (state) => state.activeConversation
+  );
   const { conversation, unreadMessages } = props;
   const { latestMessageText, otherUser } = conversation;
 
@@ -67,16 +70,20 @@ const ChatContent = (props) => {
         <Box className={classes.latestMessageWrapper}>
           <Typography
             className={`${classes.previewText} ${
-              unreadMessages.length ? classes.previewTextHighlighted : ''
+              unreadMessages.length &&
+              otherActiveChatUsername !== otherUser.username
+                ? classes.previewTextHighlighted
+                : ''
             } `}
           >
             {latestMessageText}
           </Typography>
-          {unreadMessages.length > 0 && (
-            <Typography className={classes.notification}>
-              {unreadMessages.length > 100 ? '100+' : unreadMessages.length}
-            </Typography>
-          )}
+          {unreadMessages.length > 0 &&
+            otherActiveChatUsername !== otherUser.username && (
+              <Typography className={classes.notification}>
+                {unreadMessages.length > 100 ? '100+' : unreadMessages.length}
+              </Typography>
+            )}
         </Box>
       </Box>
     </Box>
