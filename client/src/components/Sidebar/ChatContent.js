@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#000'
   },
   notification: {
+    minHeight: '1.25rem',
+    minWidth: '1.25rem',
     backgroundColor: '#3F92FF',
     margin: 'auto 1rem',
     padding: '0.1rem 0.3rem',
@@ -71,7 +73,7 @@ const ChatContent = (props) => {
             {latestMessageText}
           </Typography>
           <Typography className={classes.notification}>
-            {unreadMessages.length}
+            {unreadMessages.length > 100 ? '100+' : unreadMessages.length}
           </Typography>
         </Box>
       </Box>
