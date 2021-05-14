@@ -81,3 +81,9 @@ export const addNewConvoToStore = (state, recipientId, message) => {
     }
   });
 };
+
+export const updateConversationInStore = (state, messages) => {
+  console.log('update state', state, messages);
+
+  return state;
+};

@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Box } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { SenderBubble, OtherUserBubble } from '../ActiveChat';
-import { updateUnreadMessagesInActiveChat } from '../../store/utils/thunkCreators';
+import { updateUnreadMessages } from '../../store/utils/thunkCreators';
 import moment from 'moment';
 
 const styles = {
@@ -18,10 +19,10 @@ const styles = {
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
   const bottomOfMessagesContainerRef = useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
-    updateUnreadMessagesInActiveChat(messages, otherUser, userId);
+    dispatch(updateUnreadMessages(messages, userId));
   });
 
   return (
