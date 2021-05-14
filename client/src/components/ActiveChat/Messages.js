@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { SenderBubble, OtherUserBubble } from '../ActiveChat';
-import { updateConvo } from '../../store/utils/thunkCreators';
+import { updateUnreadMessagesInActiveChat } from '../../store/utils/thunkCreators';
 import moment from 'moment';
 
 const styles = {
@@ -21,7 +21,7 @@ const Messages = (props) => {
 
   useEffect(() => {
     bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
-    updateConvo(messages, otherUser, userId);
+    updateUnreadMessagesInActiveChat(messages, otherUser, userId);
   });
 
   return (

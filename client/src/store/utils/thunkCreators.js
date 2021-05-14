@@ -57,8 +57,11 @@ export const logout = (id) => async (dispatch) => {
   }
 };
 
-// dummy
-export const updateConvo = async (messages, otherUser, userId) => {
+export const updateUnreadMessagesInActiveChat = async (
+  messages,
+  otherUser,
+  userId
+) => {
   // are there un read messages & are the messages sent by the otherUser?
   const unreadMessageIds = [];
 
