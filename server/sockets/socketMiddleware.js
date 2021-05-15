@@ -20,8 +20,6 @@ const socketMiddleware = () => {
       socket.username = decoded.username;
       return next();
     });
-
-    next();
   };
 };
 
