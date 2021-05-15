@@ -3,10 +3,15 @@ import store from './store';
 import {
   setNewMessage,
   removeOfflineUser,
-  addOnlineUser
+  addOnlineUser,
+  setOnlineUsers
 } from './store/conversations';
 
 const socket = io(window.location.origin, { autoConnect: false });
+
+socket.on('users', (users) => {
+  store.dispatch(setOnlineUsers(users));
+});
 
 socket.on('add-online-user', (id) => {
   store.dispatch(addOnlineUser(id));
