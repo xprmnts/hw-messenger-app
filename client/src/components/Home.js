@@ -33,11 +33,10 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    socket.auth = {
-      userId: user.id
-    };
-    socket.connect();
-  }, [user]);
+    if (!socket.connected) {
+      socket.connect();
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(fetchConversations());

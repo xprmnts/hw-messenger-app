@@ -1,5 +1,6 @@
 const socketMessageHandler = (io, socket) => {
   return ({ data, to }) => {
+    console.log('calling socket messang handler is ', socket.userId);
     let recipientSocketId;
     // get the socket id of the recipient
     for (let [id, socket] of io.of('/').sockets) {
