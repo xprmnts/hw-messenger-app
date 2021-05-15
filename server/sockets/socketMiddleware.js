@@ -25,18 +25,3 @@ const socketMiddleware = () => {
 };
 
 module.exports = socketMiddleware;
-
-// use token to set userId once handling cases if there are multiple cookies
-// const cookies = socket.handshake.headers.cookie.split(';');
-// let accessToken;
-// cookies.forEach((cookie) => {
-//   const [name, token] = cookie.split('=');
-//   if (name === 'messengerAppAccessToken') {
-//     return (accessToken = token);
-//   }
-// });
-
-// if (!socket.userId && accessToken) {
-//   console.log('validating token and setting user id to socket', socket.id);
-
-// }
