@@ -74,17 +74,10 @@ const saveMessage = async (body) => {
 };
 
 const sendMessage = (data, body) => {
-  console.log(data, body);
   socket.emit('new-message', {
     data,
     to: body.recipientId
   });
-
-  // socket.emit('new-message', {
-  //   message: data.message,
-  //   recipientId: body.recipientId,
-  //   sender: data.sender
-  // });
 };
 
 // message format to send: {recipientId, text, conversationId}
