@@ -17,7 +17,6 @@ const socketMiddleware = () => {
         return next();
       }
       socket.userId = decoded.id;
-      socket.username = decoded.username;
       return next();
     });
   };

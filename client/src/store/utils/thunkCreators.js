@@ -76,7 +76,7 @@ const saveMessage = async (body) => {
 const sendMessage = (data, body) => {
   socket.emit('new-message', {
     data,
-    to: body.recipientUsername
+    to: body.recipientId
   });
 };
 
