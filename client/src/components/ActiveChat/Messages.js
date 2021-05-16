@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,20 +17,37 @@ const styles = {
 };
 
 const Messages = (props) => {
+  const [lastReadMessage, setLastReadMessage] = useState();
   const { messages, otherUser, userId } = props;
   const bottomOfMessagesContainerRef = useRef();
   const dispatch = useDispatch();
+
   useEffect(() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].senderId === userId && messages[i].readStatus) {
+        setLastReadMessage(messages[i].id);
+        break;
+      }
+    }
+
+    console.log(lastReadMessage);
     bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
     dispatch(updateUnreadMessages(messages, userId));
-  });
+  }, [messages, dispatch, userId, setLastReadMessage, lastReadMessage]);
 
   return (
     <Box className={props.classes.root}>
       {messages.map((message, index) => {
         const time = moment(message.createdAt).format('h:mm');
         return message.senderId === userId ? (
-          <SenderBubble key={message.id} text={message.text} time={time} />
+          <SenderBubble
+            key={message.id}
+            id={message.id}
+            text={message.text}
+            time={time}
+            lastReadMessage={lastReadMessage}
+            otherUser={otherUser}
+          />
         ) : (
           <OtherUserBubble
             key={message.id}
