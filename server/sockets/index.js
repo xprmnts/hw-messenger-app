@@ -11,11 +11,11 @@ module.exports = function (io) {
   io.on('connection', (socket) => {
     socket.join(socket.userId);
 
-    const users = [];
+    const onlineUsers = new Set();
     for (let [id, socket] of io.of('/').sockets) {
-      users.push(socket.userId);
+      onlineUsers.add(socket.userId);
     }
-    socket.emit('users', users);
+    socket.emit('users', [...onlineUsers.values()]);
 
     socket.on('go-online', socketLoginHandler(socket));
     socket.on('logout', socketLogoutHandler(socket));
