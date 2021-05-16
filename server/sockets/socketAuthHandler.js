@@ -1,23 +1,16 @@
-const onlineUsers = require('../onlineUsers');
-
 const socketLoginHandler = (socket) => {
-  return (id) => {
-    if (!onlineUsers.includes(id)) {
-      onlineUsers.push(id);
-    }
+  return () => {
     // send the user who just went online to everyone else who is already online
-    socket.broadcast.emit('add-online-user', id);
+    socket.broadcast.emit('add-online-user', socket.userId);
   };
 };
 
 const socketLogoutHandler = (socket) => {
-  return (id) => {
+  return () => {
     console.log('user logged out');
-    if (onlineUsers.includes(id)) {
-      userIndex = onlineUsers.indexOf(id);
-      onlineUsers.splice(userIndex, 1);
-      socket.broadcast.emit('remove-offline-user', id);
-    }
+
+    socket.broadcast.emit('remove-offline-user', socket.userId);
+
     socket.disconnect();
   };
 };

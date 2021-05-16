@@ -35,15 +35,8 @@ const server = http.createServer(app);
  */
 
 const io = require('socket.io')(server);
-
-io.use(socketMiddleware()); // add userId property to socket
-
-io.on('connection', (socket) => {
-  socket.on('go-online', socketLoginHandler(socket));
-  socket.on('logout', socketLogoutHandler(socket));
-  socket.on('new-message', socketMessageHandler(io, socket));
-  socket.on('read-messages', socketReadStatusHandler(io, socket));
-});
+require('../sockets/index')(io);
+app.set('socketio', io);
 
 sessionStore
   .sync()

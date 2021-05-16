@@ -23,7 +23,7 @@ router.post('/register', async (req, res, next) => {
     const user = await User.create(req.body);
 
     const token = jwt.sign(
-      { id: user.dataValues.id },
+      { id: user.dataValues.id, username: user.dataValues.username },
       process.env.SESSION_SECRET,
       { expiresIn: 86400 }
     );
@@ -65,7 +65,7 @@ router.post('/login', async (req, res, next) => {
       res.status(401).json({ error: 'Wrong username and/or password' });
     } else {
       const token = jwt.sign(
-        { id: user.dataValues.id },
+        { id: user.dataValues.id, username: user.dataValues.username },
         process.env.SESSION_SECRET,
         { expiresIn: 86400 }
       );
