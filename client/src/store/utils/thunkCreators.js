@@ -58,31 +58,37 @@ export const logout = (id) => async (dispatch) => {
   }
 };
 
-export const updateUnreadMessages = (messages, userId) => async (dispatch) => {
-  // are there un read messages & are the messages sent by the otherUser?
-  const unreadMessageIds = [];
+export const updateUnreadMessages =
+  (messages, userId, otherUserId) => async (dispatch) => {
+    // are there un read messages & are the messages sent by the otherUser?
+    const unreadMessageIds = [];
 
-  messages.forEach((message) => {
-    if (message.senderId !== userId && !message.readStatus) {
-      unreadMessageIds.push(message.id);
+    messages.forEach((message) => {
+      if (message.senderId !== userId && !message.readStatus) {
+        unreadMessageIds.push(message.id);
+        message.readStatus = true;
+      }
+    });
+
+    const payload = {
+      unreadMessageIds
+    };
+    // send api call to update the messages
+    if (unreadMessageIds.length > 0) {
+      try {
+        await axios.patch('/api/messages', {
+          data: payload
+        });
+        dispatch(updateConversation(messages));
+        socket.emit('read-messages', {
+          messages,
+          to: otherUserId
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
-  });
-
-  const payload = {
-    unreadMessageIds
   };
-  // send api call to update the messages
-  if (unreadMessageIds.length > 0) {
-    try {
-      await axios.patch('/api/messages', {
-        data: payload
-      });
-      dispatch(updateConversation(messages));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-};
 
 // CONVERSATIONS THUNK CREATORS
 

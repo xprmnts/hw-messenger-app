@@ -21,7 +21,10 @@ const Messages = (props) => {
   const { messages, otherUser, userId } = props;
   const bottomOfMessagesContainerRef = useRef();
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
+    dispatch(updateUnreadMessages(messages, userId, otherUser.id));
+  });
   useEffect(() => {
     for (let i = messages.length - 1; i >= 0; i--) {
       if (messages[i].senderId === userId && messages[i].readStatus) {
@@ -29,11 +32,7 @@ const Messages = (props) => {
         break;
       }
     }
-
-    console.log(lastReadMessage);
-    bottomOfMessagesContainerRef.current.scrollIntoView({ smooth: true });
-    dispatch(updateUnreadMessages(messages, userId));
-  }, [messages, dispatch, userId, setLastReadMessage, lastReadMessage]);
+  }, [messages, userId, setLastReadMessage, lastReadMessage]);
 
   return (
     <Box className={props.classes.root}>

@@ -86,7 +86,7 @@ export const updateConversationInStore = (state, messages) => {
   return state.map((convo) => {
     if (convo.id === messages[0].conversationId) {
       const newConvo = { ...convo };
-      newConvo.messages.forEach((message) => (message.readStatus = true));
+      newConvo.messages = [...messages];
 
       return newConvo;
     } else {

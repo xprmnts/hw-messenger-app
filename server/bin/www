@@ -12,6 +12,7 @@ const http = require('http');
 const db = require('../db');
 const socketMiddleware = require('../sockets/socketMiddleware');
 const socketMessageHandler = require('../sockets/socketMessageHandler');
+const socketReadStatusHandler = require('../sockets/socketReadStatusHandler');
 const {
   socketLoginHandler,
   socketLogoutHandler
@@ -41,6 +42,7 @@ io.on('connection', (socket) => {
   socket.on('go-online', socketLoginHandler(socket));
   socket.on('logout', socketLogoutHandler(socket));
   socket.on('new-message', socketMessageHandler(io, socket));
+  socket.on('read-messages', socketReadStatusHandler(io, socket));
 });
 
 sessionStore
