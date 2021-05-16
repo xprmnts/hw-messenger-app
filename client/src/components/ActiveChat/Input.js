@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, FilledInput } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import { postMessage } from '../../store/utils/thunkCreators';
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
   root: {
     justifySelf: 'flex-end',
     marginTop: 15
@@ -15,72 +15,52 @@ const styles = {
     borderRadius: 8,
     marginBottom: 20
   }
-};
+}));
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: ''
-    };
-  }
+const Input = (props) => {
+  const user = useSelector((state) => state.user);
+  const [inputText, setInputText] = useState('');
+  const dispatch = useDispatch();
 
-  handleChange = (event) => {
-    this.setState({
-      text: event.target.value
-    });
+  const classes = useStyles();
+
+  const handleChange = (event) => {
+    setInputText(event.target.value);
   };
-
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const currentFieldValue = event.target.text.value;
+
+    // prevent empty messages to trigger message submission
+    if (currentFieldValue.trim().length === 0) {
+      return;
+    }
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
       text: event.target.text.value,
-      recipientId: this.props.otherUser.id,
-      conversationId: this.props.conversationId,
-      sender: this.props.conversationId ? null : this.props.user
+      recipientId: props.otherUser.id,
+      conversationId: props.conversationId,
+      sender: props.conversationId ? null : user
     };
-    await this.props.postMessage(reqBody);
-    this.setState({
-      text: ''
-    });
+
+    await dispatch(postMessage(reqBody));
+    setInputText('');
   };
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <form className={classes.root} onSubmit={this.handleSubmit}>
-        <FormControl fullWidth hiddenLabel>
-          <FilledInput
-            classes={{ root: classes.input }}
-            disableUnderline
-            placeholder="Type something..."
-            value={this.state.text}
-            name="text"
-            onChange={this.handleChange}
-          />
-        </FormControl>
-      </form>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    conversations: state.conversations
-  };
+  return (
+    <form className={classes.root} onSubmit={handleSubmit}>
+      <FormControl fullWidth hiddenLabel>
+        <FilledInput
+          classes={{ root: classes.input }}
+          disableUnderline
+          placeholder="Type something..."
+          value={inputText}
+          onChange={handleChange}
+          name="text"
+        />
+      </FormControl>
+    </form>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    postMessage: (message) => {
-      dispatch(postMessage(message));
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Input));
+export default Input;
