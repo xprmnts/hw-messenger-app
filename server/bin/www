@@ -12,6 +12,7 @@ const http = require('http');
 const db = require('../db');
 const socketMiddleware = require('../sockets/socketMiddleware');
 const socketMessageHandler = require('../sockets/socketMessageHandler');
+const socketReadStatusHandler = require('../sockets/socketReadStatusHandler');
 const {
   socketLoginHandler,
   socketLogoutHandler

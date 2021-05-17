@@ -4,6 +4,7 @@ const {
   socketLoginHandler,
   socketLogoutHandler
 } = require('../sockets/socketAuthHandler');
+const socketReadStatusHandler = require('./socketReadStatusHandler');
 
 // define constructor function that gets `io` send to it
 module.exports = function (io) {
@@ -16,7 +17,7 @@ module.exports = function (io) {
       onlineUsers.add(socket.userId);
     }
     socket.emit('users', [...onlineUsers.values()]);
-
+    socket.on('read-messages', socketReadStatusHandler(socket));
     socket.on('go-online', socketLoginHandler(socket));
     socket.on('logout', socketLogoutHandler(socket));
     socket.on('new-message', socketMessageHandler(socket));

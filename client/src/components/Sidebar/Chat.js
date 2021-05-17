@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import { BadgeAvatar, ChatContent } from '../Sidebar';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { setActiveChat } from '../../store/activeConversation';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const styles = {
+const useStyles = makeStyles(() => ({
   root: {
     borderRadius: 8,
     height: 80,
@@ -17,39 +17,67 @@ const styles = {
       cursor: 'grab'
     }
   }
-};
+}));
 
-class Chat extends Component {
-  handleClick = async (conversation) => {
-    await this.props.setActiveChat(conversation.otherUser.username);
+const Chat = (props) => {
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  const classes = useStyles();
+  const currentUserId = useSelector((state) => state.user.id);
+  const otherUser = props.conversation.otherUser;
+
+  const dispatch = useDispatch();
+
+  const handleClick = async (conversation) => {
+    await dispatch(setActiveChat(conversation.otherUser.username));
   };
 
-  render() {
-    const { classes } = this.props;
-    const otherUser = this.props.conversation.otherUser;
-    return (
-      <Box
-        onClick={() => this.handleClick(this.props.conversation)}
-        className={classes.root}
-      >
-        <BadgeAvatar
-          photoUrl={otherUser.photoUrl}
-          username={otherUser.username}
-          online={otherUser.online}
-          sidebar={true}
-        />
-        <ChatContent conversation={this.props.conversation} />
-      </Box>
-    );
-  }
-}
+  useEffect(() => {
+    const allMessages = props.conversation.messages;
+    let unreadTempMessages = [];
+    let idx = allMessages.length - 1;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setActiveChat: (id) => {
-      dispatch(setActiveChat(id));
+    while (idx > 0) {
+      if (
+        allMessages[idx].senderId !== currentUserId &&
+        !allMessages[idx].readStatus
+      ) {
+        unreadTempMessages.push(allMessages[idx]);
+      }
+
+      if (
+        allMessages[idx].senderId !== currentUserId &&
+        allMessages[idx].readStatus
+      ) {
+        break;
+      }
+
+      idx--;
     }
-  };
+
+    setUnreadMessages(unreadTempMessages);
+
+    // last message in conovo isn't the current users' and it hasn't been read
+    // set lastMessageStatus to fals
+  }, [props.conversation, currentUserId]);
+
+  return (
+    <Box
+      onClick={() => handleClick(props.conversation)}
+      className={classes.root}
+    >
+      <BadgeAvatar
+        photoUrl={otherUser.photoUrl}
+        username={otherUser.username}
+        online={otherUser.online}
+        sidebar={true}
+      />
+      <ChatContent
+        conversation={props.conversation}
+        unreadMessages={unreadMessages}
+      />
+    </Box>
+  );
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Chat));
+export default Chat;

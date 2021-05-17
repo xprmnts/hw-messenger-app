@@ -93,3 +93,16 @@ export const addNewConvoToStore = (state, recipientId, message) => {
     }
   });
 };
+
+export const updateConversationInStore = (state, messages) => {
+  return state.map((convo) => {
+    if (convo.id === messages[0].conversationId) {
+      const newConvo = { ...convo };
+      newConvo.messages = [...messages];
+
+      return newConvo;
+    } else {
+      return convo;
+    }
+  });
+};

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Search, Chat, CurrentUser } from './index.js';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 21,
     paddingRight: 21,
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 
 const Sidebar = (props) => {
   const classes = useStyles();
-  const conversations = props.conversations || [];
+  const conversations = useSelector((state) => state.conversations) || [];
   const { handleChange, searchTerm } = props;
 
   return (
@@ -45,10 +45,4 @@ const Sidebar = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    conversations: state.conversations
-  };
-};
-
-export default connect(mapStateToProps)(Sidebar);
+export default Sidebar;

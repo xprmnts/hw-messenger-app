@@ -4,7 +4,8 @@ import {
   gotConversations,
   addConversation,
   setNewMessage,
-  setSearchedUsers
+  setSearchedUsers,
+  updateConversation
 } from '../conversations';
 import { gotUser, setFetchingStatus } from '../user';
 
@@ -56,6 +57,46 @@ export const logout = (id) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const updateUnreadMessages =
+  (messages, userId, otherUserId) => async (dispatch) => {
+    // are there un read messages & are the messages sent by the otherUser?
+    const unreadMessageIds = [];
+
+    let idx = messages.length - 1;
+
+    while (idx > 0) {
+      if (messages[idx].senderId !== userId && !messages[idx].readStatus) {
+        unreadMessageIds.push(messages[idx].id);
+        messages[idx].readStatus = true;
+      }
+
+      if (messages[idx].senderId !== userId && messages[idx].readStatus) {
+        break;
+      }
+
+      idx--;
+    }
+
+    const payload = {
+      unreadMessageIds
+    };
+    // send api call to update the messages
+    if (unreadMessageIds.length > 0) {
+      try {
+        await axios.patch('/api/messages', {
+          data: payload
+        });
+        dispatch(updateConversation(messages));
+        socket.emit('read-messages', {
+          messages,
+          to: otherUserId
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
 // CONVERSATIONS THUNK CREATORS
 

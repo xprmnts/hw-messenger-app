@@ -4,10 +4,16 @@ import {
   setNewMessage,
   removeOfflineUser,
   addOnlineUser,
+  updateConversation,
   setOnlineUsers
 } from './store/conversations';
 
 const socket = io(window.location.origin, { autoConnect: false });
+
+socket.on('read-messages', (messages) => {
+  console.log(messages);
+  store.dispatch(updateConversation(messages));
+});
 
 socket.on('users', (users) => {
   store.dispatch(setOnlineUsers(users));
