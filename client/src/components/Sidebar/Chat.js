@@ -37,7 +37,7 @@ const Chat = (props) => {
     let unreadTempMessages = [];
     let idx = allMessages.length - 1;
 
-    while (idx > 0) {
+    while (idx >= 0) {
       if (
         allMessages[idx].senderId !== currentUserId &&
         !allMessages[idx].readStatus
@@ -54,7 +54,6 @@ const Chat = (props) => {
 
       idx--;
     }
-
     setUnreadMessages(unreadTempMessages);
 
     // last message in conovo isn't the current users' and it hasn't been read
