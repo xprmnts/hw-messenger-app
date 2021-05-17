@@ -28,9 +28,12 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     marginLeft: 17
   },
+  menuButton: {
+    minWidth: '1rem',
+    padding: 0
+  },
   ellipsis: {
     color: '#95A7C4',
-    marginRight: 24,
     opacity: 0.5
   }
 }));
@@ -64,8 +67,8 @@ const CurrentUser = () => {
       <BadgeAvatar photoUrl={user.photoUrl} online={true} />
       <Box className={classes.subContainer}>
         <Typography className={classes.username}>{user.username}</Typography>
-        <Button onClick={handleMenuClick}>
-          <MoreHorizIcon classes={{ root: classes.ellipsis }} />
+        <Button className={classes.menuButton} onClick={handleMenuClick}>
+          <MoreHorizIcon className={classes.ellipsis} />
         </Button>
         <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleClick}>
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
