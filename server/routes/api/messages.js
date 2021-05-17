@@ -41,6 +41,9 @@ router.post('/', async (req, res, next) => {
     );
 
     if (!conversation) {
+      if (req.body.sender.id !== req.user.id) {
+        return res.sendStatus(401);
+      }
       // create conversation
       conversation = await Conversation.create({
         user1Id: senderId,
