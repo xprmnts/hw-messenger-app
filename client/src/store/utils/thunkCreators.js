@@ -63,12 +63,20 @@ export const updateUnreadMessages =
     // are there un read messages & are the messages sent by the otherUser?
     const unreadMessageIds = [];
 
-    messages.forEach((message) => {
-      if (message.senderId !== userId && !message.readStatus) {
-        unreadMessageIds.push(message.id);
-        message.readStatus = true;
+    let idx = messages.length - 1;
+
+    while (idx > 0) {
+      if (messages[idx].senderId !== userId && !messages[idx].readStatus) {
+        unreadMessageIds.push(messages[idx].id);
+        messages[idx].readStatus = true;
       }
-    });
+
+      if (messages[idx].senderId !== userId && messages[idx].readStatus) {
+        break;
+      }
+
+      idx--;
+    }
 
     const payload = {
       unreadMessageIds
