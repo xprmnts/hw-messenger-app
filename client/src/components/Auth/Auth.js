@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Box, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { register, login } from '../../store/utils/thunkCreators';
 import AuthBranding from './AuthBranding';
 import AuthSecondaryCTA from './AuthSecondaryCTA';
 import AuthForm from './AuthForm';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   authPage: {
     minHeight: '60rem'
   },
@@ -45,13 +45,14 @@ const styles = (theme) => ({
       flexGrow: '0'
     }
   }
-});
+}));
 
-const Auth = (props) => {
+const Auth = () => {
   const history = useHistory();
   const isLogin = useLocation().pathname === '/login';
-
-  const { user, register, login } = props;
+  const classes = useStyles();
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [formErrorMessage, setFormErrorMessage] = useState({});
 
   const formTitleTypography = isLogin ? 'Welcome Back!' : 'Create an account';
@@ -69,7 +70,7 @@ const Auth = (props) => {
     const username = event.target.username.value;
     const password = event.target.password.value;
 
-    await login({ username, password });
+    await dispatch(login({ username, password }));
   };
 
   const handleRegister = async (event) => {
@@ -84,7 +85,7 @@ const Auth = (props) => {
       return;
     }
 
-    await register({ username, email, password });
+    await dispatch(register({ username, email, password }));
   };
 
   if (user.id) {
@@ -92,23 +93,23 @@ const Auth = (props) => {
   }
 
   return (
-    <Grid container component="main" className={props.classes.authPage}>
+    <Grid container component="main" className={classes.authPage}>
       <AuthBranding />
       <Grid
         item
         container
         xs={12}
-        className={props.classes.formGrid}
+        className={classes.formGrid}
         justify="center"
       >
-        <Box className={props.classes.formWrapper}>
+        <Box className={classes.formWrapper}>
           <AuthSecondaryCTA
             loginState={isLogin}
             onSecondaryCTAClick={secondaryCTARouteHandler}
             display={{ xs: 'none', sm: 'block' }}
           />
-          <Box className={props.classes.formMainContainer}>
-            <Typography className={props.classes.formTitle}>
+          <Box className={classes.formMainContainer}>
+            <Typography className={classes.formTitle}>
               {formTitleTypography}
             </Typography>
 
@@ -131,24 +132,4 @@ const Auth = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    register: (credentials) => {
-      dispatch(register(credentials));
-    },
-    login: (credentials) => {
-      dispatch(login(credentials));
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Auth));
+export default Auth;
