@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { Search, Chat, CurrentUser } from './index.js';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 21,
     paddingRight: 21,

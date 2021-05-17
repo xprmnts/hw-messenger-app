@@ -6,6 +6,8 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    maxWidth: '60%',
+    alignSelf: 'flex-end',
     alignItems: 'flex-end'
   },
   avatar: {
