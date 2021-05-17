@@ -14,6 +14,23 @@ router.post('/', async (req, res, next) => {
 
     // if we already know conversation id, we can save time and just add it to message and return
     if (conversationId) {
+      //validate request is coming from a user that exists in this conversation
+      const convo = await Conversation.findOne({
+        where: {
+          [Op.or]: {
+            id: conversationId
+          }
+        },
+        attributes: ['user1Id', 'user2Id']
+      });
+
+      if (
+        convo.dataValues.user1Id !== req.user.id &&
+        convo.dataValues.user2Id !== req.user.id
+      ) {
+        return res.sendStatus(401);
+      }
+
       const message = await Message.create({ senderId, text, conversationId });
       return res.json({ message, sender });
     }
