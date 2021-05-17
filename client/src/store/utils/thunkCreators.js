@@ -65,7 +65,7 @@ export const updateUnreadMessages =
 
     let idx = messages.length - 1;
 
-    while (idx > 0) {
+    while (idx >= 0) {
       if (messages[idx].senderId !== userId && !messages[idx].readStatus) {
         unreadMessageIds.push(messages[idx].id);
         messages[idx].readStatus = true;

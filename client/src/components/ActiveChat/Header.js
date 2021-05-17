@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { Box, Typography, Button, Menu, MenuItem } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { isMobile } from 'react-device-detect';
+import { setActiveChat } from '../../store/activeConversation';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,8 +12,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 89,
-    marginBottom: 34,
-    boxShadow: '0 2px 20px 0 rgba(88,133,196,0.10)'
+    marginBottom: '2rem',
+    boxShadow: '0 2px 20px 0 rgba(88,133,196,0.10)',
+    [theme.breakpoints.down('sm')]: {
+      position: 'fixed',
+      zIndex: '10',
+      background: 'white',
+      width: '100%'
+    }
   },
   content: {
     display: 'flex',
@@ -48,6 +57,23 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const classes = useStyles();
   const { username, online } = props;
+  const dispatch = useDispatch();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(false);
+
+  const handleClick = () => {
+    setMenuOpen((prevState) => !prevState);
+  };
+
+  const handleMenuClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setMenuOpen(true);
+  };
+
+  const handleAllChats = (e) => {
+    dispatch(setActiveChat(''));
+  };
 
   return (
     <Box className={classes.root}>
@@ -60,7 +86,16 @@ const Header = (props) => {
           {online ? 'Online' : 'Offline'}
         </Typography>
       </Box>
-      <MoreHorizIcon classes={{ root: classes.ellipsis }} />
+      {isMobile && (
+        <>
+          <Button className={classes.menuButton} onClick={handleMenuClick}>
+            <MoreHorizIcon className={classes.ellipsis} />
+          </Button>
+          <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleClick}>
+            <MenuItem onClick={handleAllChats}>All Chats</MenuItem>
+          </Menu>
+        </>
+      )}
     </Box>
   );
 };

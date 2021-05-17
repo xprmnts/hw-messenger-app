@@ -5,11 +5,11 @@ import {
   TextField,
   FormHelperText
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import AuthButton from './AuthButton';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   formLayout: {
     flexDirection: 'column'
   },
@@ -17,22 +17,24 @@ const styles = (theme) => ({
   formInputStyling: {
     margin: '0.75rem 0rem'
   }
-});
+}));
 
 const AuthForm = (props) => {
+  const classes = useStyles();
   const isLogin = props.loginState;
 
   const formSubmitButtonText = isLogin ? 'Login' : 'Create';
 
   return (
     <form onSubmit={isLogin ? props.handleLogin : props.handleRegister}>
-      <Grid container className={props.classes.formLayout}>
+      <Grid container className={classes.formLayout}>
         <Grid>
-          <FormControl fullWidth className={props.classes.formInputStyling}>
+          <FormControl fullWidth className={classes.formInputStyling}>
             <TextField
               aria-label="username"
               label="Username"
               name="username"
+              autoComplete="on"
               type="text"
               required
             />
@@ -40,12 +42,13 @@ const AuthForm = (props) => {
         </Grid>
         <Grid>
           {!isLogin && (
-            <FormControl fullWidth className={props.classes.formInputStyling}>
+            <FormControl fullWidth className={classes.formInputStyling}>
               <TextField
                 label="E-mail address"
                 aria-label="e-mail address"
                 type="email"
                 name="email"
+                autoComplete="on"
                 required
               />
             </FormControl>
@@ -55,7 +58,7 @@ const AuthForm = (props) => {
           <FormControl
             fullWidth
             error={!!props.formErrorMessage.confirmPassword}
-            className={props.classes.formInputStyling}
+            className={classes.formInputStyling}
           >
             <TextField
               aria-label="password"
@@ -63,6 +66,7 @@ const AuthForm = (props) => {
               type="password"
               inputProps={{ minLength: 6 }}
               name="password"
+              autoComplete="on"
               required
             />
             <FormHelperText>
@@ -74,7 +78,7 @@ const AuthForm = (props) => {
           {!isLogin && (
             <FormControl
               fullWidth
-              className={props.classes.formInputStyling}
+              className={classes.formInputStyling}
               error={!!props.formErrorMessage.confirmPassword}
             >
               <TextField
@@ -83,6 +87,7 @@ const AuthForm = (props) => {
                 type="password"
                 inputProps={{ minLength: 6 }}
                 name="confirmPassword"
+                autoComplete="on"
                 required
               />
               <FormHelperText>
@@ -97,4 +102,4 @@ const AuthForm = (props) => {
   );
 };
 
-export default withStyles(styles)(AuthForm);
+export default AuthForm;

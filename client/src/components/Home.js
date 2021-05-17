@@ -3,19 +3,26 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Grid, CssBaseline, Button } from '@material-ui/core';
+import { Grid, CssBaseline } from '@material-ui/core';
 import { SidebarContainer } from './Sidebar';
 import { ActiveChat } from './ActiveChat';
-import { logout, fetchConversations } from '../store/utils/thunkCreators';
-import { clearOnLogout } from '../store/index';
+import { fetchConversations } from '../store/utils/thunkCreators';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '97vh'
+    height: '97vh',
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'nowrap'
+    }
+  },
+  mobileContainer: {
+    width: '100vw'
   }
 }));
 
 const Home = (props) => {
+  const activeChat = useSelector((state) => state.activeConversation);
   const user = useSelector((state) => state.user);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -26,11 +33,7 @@ const Home = (props) => {
     history.push('/register');
   }
 
-  const handleLogout = async () => {
-    await dispatch(logout(user.id));
-    dispatch(clearOnLogout());
-    history.push('/login');
-  };
+  useEffect(() => {}, [activeChat]);
 
   useEffect(() => {
     if (!socket.connected) {
@@ -44,13 +47,20 @@ const Home = (props) => {
 
   return (
     <>
-      {/* logout button will eventually be in a dropdown next to username */}
-      <Button onClick={handleLogout}>Logout</Button>
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <SidebarContainer />
-        <ActiveChat />
-      </Grid>
+      <BrowserView>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <SidebarContainer />
+          <ActiveChat />
+        </Grid>
+      </BrowserView>
+      <MobileView className={classes.mobileContainer}>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          {!activeChat && <SidebarContainer />}
+          <ActiveChat />
+        </Grid>
+      </MobileView>
     </>
   );
 };
