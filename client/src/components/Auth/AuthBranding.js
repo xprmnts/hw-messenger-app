@@ -1,10 +1,10 @@
 import React from 'react';
 import { Grid, Box, Typography, SvgIcon } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import BackgroundImage from '../../assets/images/bg-img.png';
 import { ReactComponent as Logo } from '../../assets/images/bubble.svg';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   imageContainer: {
     minHeight: '60rem',
     height: '100vh',
@@ -33,17 +33,18 @@ const styles = (theme) => ({
     margin: '4rem 1rem',
     color: '#FFF'
   }
-});
+}));
 
-const AuthBranding = (props) => {
+const AuthBranding = () => {
+  const classes = useStyles();
   return (
-    <Grid item xs={false} sm={4} className={props.classes.imageContainer}>
+    <Grid item xs={false} sm={4} className={classes.imageContainer}>
       <Box display={{ xs: 'none', sm: 'block' }}>
-        <div className={props.classes.imageOverlay}>
-          <SvgIcon viewBox="0 0 67 67" className={props.classes.iconRoot}>
+        <div className={classes.imageOverlay}>
+          <SvgIcon viewBox="0 0 67 67" className={classes.iconRoot}>
             <Logo />
           </SvgIcon>
-          <Typography align="center" className={props.classes.tagLine}>
+          <Typography align="center" className={classes.tagLine}>
             Converse with anyone
             <br />
             with any language
@@ -54,4 +55,4 @@ const AuthBranding = (props) => {
   );
 };
 
-export default withStyles(styles)(AuthBranding);
+export default AuthBranding;

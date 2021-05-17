@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
   authPrimaryCTA: {
     backgroundColor: '#3A8DFF',
     color: '#FFF',
@@ -16,18 +16,18 @@ const styles = {
       backgroundColor: '#f7f7f7'
     }
   }
-};
+}));
 
 const AuthButton = (props) => {
+  const classes = useStyles();
+
   return (
     <Button
       type={props.type || ''}
       variant="contained"
       size="large"
       className={
-        props.type
-          ? `${props.classes.authPrimaryCTA}`
-          : `${props.classes.authSecondaryCTA}`
+        props.type ? `${classes.authPrimaryCTA}` : `${classes.authSecondaryCTA}`
       }
       onClick={props.onClick}
     >
@@ -36,4 +36,4 @@ const AuthButton = (props) => {
   );
 };
 
-export default withStyles(styles)(AuthButton);
+export default AuthButton;
