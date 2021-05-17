@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -60,6 +61,8 @@ const ChatContent = (props) => {
   );
   const { conversation, unreadMessages } = props;
   const { latestMessageText, otherUser } = conversation;
+  const convoHasUnreadMessages =
+    unreadMessages.length && otherActiveChatUsername !== otherUser.username;
 
   return (
     <Box className={classes.root}>
@@ -69,12 +72,10 @@ const ChatContent = (props) => {
         </Typography>
         <Box className={classes.latestMessageWrapper}>
           <Typography
-            className={`${classes.previewText} ${
-              unreadMessages.length &&
-              otherActiveChatUsername !== otherUser.username
-                ? classes.previewTextHighlighted
-                : ''
-            } `}
+            className={clsx(
+              classes.previewText,
+              convoHasUnreadMessages && classes.previewTextHighlighted
+            )}
           >
             {latestMessageText}
           </Typography>
