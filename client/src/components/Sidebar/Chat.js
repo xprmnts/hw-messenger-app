@@ -33,10 +33,29 @@ const Chat = (props) => {
   };
 
   useEffect(() => {
-    const result = props.conversation.messages.filter(
-      (message) => message.senderId !== currentUserId && !message.readStatus
-    );
-    setUnreadMessages(result);
+    const allMessages = props.conversation.messages;
+    let unreadTempMessages = [];
+    let idx = allMessages.length - 1;
+
+    while (idx > 0) {
+      if (
+        allMessages[idx].senderId !== currentUserId &&
+        !allMessages[idx].readStatus
+      ) {
+        unreadTempMessages.push(allMessages[idx]);
+      }
+
+      if (
+        allMessages[idx].senderId !== currentUserId &&
+        allMessages[idx].readStatus
+      ) {
+        break;
+      }
+
+      idx--;
+    }
+
+    setUnreadMessages(unreadTempMessages);
 
     // last message in conovo isn't the current users' and it hasn't been read
     // set lastMessageStatus to fals
