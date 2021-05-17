@@ -11,7 +11,10 @@ import { clearOnLogout } from '../store/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '97vh'
+    height: '97vh',
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'nowrap'
+    }
   }
 }));
 
