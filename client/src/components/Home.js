@@ -3,11 +3,10 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Grid, CssBaseline, Button } from '@material-ui/core';
+import { Grid, CssBaseline } from '@material-ui/core';
 import { SidebarContainer } from './Sidebar';
 import { ActiveChat } from './ActiveChat';
-import { logout, fetchConversations } from '../store/utils/thunkCreators';
-import { clearOnLogout } from '../store/index';
+import { fetchConversations } from '../store/utils/thunkCreators';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,12 +28,6 @@ const Home = (props) => {
     history.push('/register');
   }
 
-  const handleLogout = async () => {
-    await dispatch(logout(user.id));
-    dispatch(clearOnLogout());
-    history.push('/login');
-  };
-
   useEffect(() => {
     if (!socket.connected) {
       socket.connect();
@@ -47,8 +40,6 @@ const Home = (props) => {
 
   return (
     <>
-      {/* logout button will eventually be in a dropdown next to username */}
-      <Button onClick={handleLogout}>Logout</Button>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <SidebarContainer />

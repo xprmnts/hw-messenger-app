@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Typography, Menu, MenuItem, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-<<<<<<< HEAD
-import { useSelector } from 'react-redux';
-=======
 import { useSelector, useDispatch } from 'react-redux';
->>>>>>> logOutDropdown
+import { useHistory } from 'react-router-dom';
 import { BadgeAvatar } from './index';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { logout } from '../../store/utils/thunkCreators';
+import { clearOnLogout } from '../../store/index';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,17 +36,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CurrentUser = () => {
-<<<<<<< HEAD
-  const classes = useStyles();
-  const user = useSelector((state) => state.user) || {};
-=======
   const user = useSelector((state) => state.user) || {};
   const classes = useStyles();
   const [menuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     setMenuOpen((prevState) => !prevState);
   };
 
@@ -58,9 +53,11 @@ const CurrentUser = () => {
   };
 
   const handleLogout = async (e) => {
+    e.preventDefault();
     await dispatch(logout(user.id));
+    dispatch(clearOnLogout());
+    history.push('/login');
   };
->>>>>>> logOutDropdown
 
   return (
     <Box className={classes.root}>
