@@ -4,12 +4,15 @@ import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
 import { useSelector } from 'react-redux';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexGrow: 8,
     flexDirection: 'column',
-    maxHeight: '100%'
+    maxHeight: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '70%'
+    }
   },
   chatHeader: {
     minHeight: '6rem'

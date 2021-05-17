@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     [theme.breakpoints.down('sm')]: {
       width: '100%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '30%'
     }
   },
   title: {
