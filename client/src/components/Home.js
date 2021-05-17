@@ -7,6 +7,7 @@ import { Grid, CssBaseline } from '@material-ui/core';
 import { SidebarContainer } from './Sidebar';
 import { ActiveChat } from './ActiveChat';
 import { fetchConversations } from '../store/utils/thunkCreators';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,10 +15,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       flexWrap: 'nowrap'
     }
+  },
+  mobileContainer: {
+    width: '100vw'
   }
 }));
 
 const Home = (props) => {
+  const activeChat = useSelector((state) => state.activeConversation);
   const user = useSelector((state) => state.user);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -27,6 +32,8 @@ const Home = (props) => {
     // If we were previously logged in, redirect to login instead of register
     history.push('/register');
   }
+
+  useEffect(() => {}, [activeChat]);
 
   useEffect(() => {
     if (!socket.connected) {
@@ -40,11 +47,20 @@ const Home = (props) => {
 
   return (
     <>
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <SidebarContainer />
-        <ActiveChat />
-      </Grid>
+      <BrowserView>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <SidebarContainer />
+          <ActiveChat />
+        </Grid>
+      </BrowserView>
+      <MobileView className={classes.mobileContainer}>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          {!activeChat && <SidebarContainer />}
+          <ActiveChat />
+        </Grid>
+      </MobileView>
     </>
   );
 };
