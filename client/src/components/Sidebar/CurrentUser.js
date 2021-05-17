@@ -1,9 +1,10 @@
-import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, Typography, Menu, MenuItem, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BadgeAvatar } from './index';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { logout } from '../../store/utils/thunkCreators';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,26 +33,40 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CurrentUser = (props) => {
+const CurrentUser = () => {
+  const user = useSelector((state) => state.user) || {};
   const classes = useStyles();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(false);
+  const dispatch = useDispatch();
 
-  const user = props.user || {};
+  const handleClick = (event) => {
+    setMenuOpen((prevState) => !prevState);
+  };
+
+  const handleMenuClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setMenuOpen(true);
+  };
+
+  const handleLogout = async (e) => {
+    await dispatch(logout(user.id));
+  };
 
   return (
     <Box className={classes.root}>
       <BadgeAvatar photoUrl={user.photoUrl} online={true} />
       <Box className={classes.subContainer}>
         <Typography className={classes.username}>{user.username}</Typography>
-        <MoreHorizIcon classes={{ root: classes.ellipsis }} />
+        <Button onClick={handleMenuClick}>
+          <MoreHorizIcon classes={{ root: classes.ellipsis }} />
+        </Button>
+        <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleClick}>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
       </Box>
     </Box>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  };
-};
-
-export default connect(mapStateToProps)(CurrentUser);
+export default CurrentUser;
