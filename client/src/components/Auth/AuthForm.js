@@ -34,6 +34,7 @@ const AuthForm = (props) => {
               aria-label="username"
               label="Username"
               name="username"
+              autoComplete="on"
               type="text"
               required
             />
@@ -47,6 +48,7 @@ const AuthForm = (props) => {
                 aria-label="e-mail address"
                 type="email"
                 name="email"
+                autoComplete="on"
                 required
               />
             </FormControl>
@@ -64,6 +66,7 @@ const AuthForm = (props) => {
               type="password"
               inputProps={{ minLength: 6 }}
               name="password"
+              autoComplete="on"
               required
             />
             <FormHelperText>
@@ -84,6 +87,7 @@ const AuthForm = (props) => {
                 type="password"
                 inputProps={{ minLength: 6 }}
                 name="confirmPassword"
+                autoComplete="on"
                 required
               />
               <FormHelperText>
