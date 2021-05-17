@@ -8,7 +8,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 21,
     paddingRight: 21,
-    flexGrow: 1
+    flexGrow: 1,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
   },
   title: {
     fontSize: 20,
