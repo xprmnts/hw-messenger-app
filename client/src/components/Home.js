@@ -1,6 +1,6 @@
 import socket from '../socket';
 import React, { useEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, CssBaseline, Button } from '@material-ui/core';
@@ -9,15 +9,15 @@ import { ActiveChat } from './ActiveChat';
 import { logout, fetchConversations } from '../store/utils/thunkCreators';
 import { clearOnLogout } from '../store/index';
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
   root: {
     height: '97vh'
   }
-};
+}));
 
 const Home = (props) => {
   const user = useSelector((state) => state.user);
-  //const conversations = useSelector((state) => state.conversations);
+  const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -42,7 +42,6 @@ const Home = (props) => {
     dispatch(fetchConversations());
   }, [dispatch]);
 
-  const { classes } = props;
   return (
     <>
       {/* logout button will eventually be in a dropdown next to username */}
@@ -56,4 +55,4 @@ const Home = (props) => {
   );
 };
 
-export default withStyles(styles)(Home);
+export default Home;
