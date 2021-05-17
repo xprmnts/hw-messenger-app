@@ -24,7 +24,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     flexGrow: 1,
     justifyContent: 'space-between',
-    height: '80%'
+    height: '80%',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '6rem'
+    }
   }
 }));
 

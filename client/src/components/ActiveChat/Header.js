@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 89,
-    marginBottom: 34,
+    marginBottom: '2rem',
     boxShadow: '0 2px 20px 0 rgba(88,133,196,0.10)',
     [theme.breakpoints.down('sm')]: {
       position: 'fixed',
