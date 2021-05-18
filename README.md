@@ -2,6 +2,13 @@
 
 A one-to-one realtime chat app.
 
+[https://youtu.be/v4DPjOQmzQM] (Preview Video)
+
+## Features
+
+1. Cookie Based Authentication via JWT Tokens
+2. Real-time messaging and read receipts via Sockets.io
+
 ## Running Application Locally
 
 ```
