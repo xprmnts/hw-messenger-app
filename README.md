@@ -2,7 +2,7 @@
 
 A one-to-one realtime chat app.
 
-[https://youtu.be/v4DPjOQmzQM] (Preview Video)
+[Preview Video](https://youtu.be/v4DPjOQmzQM)
 
 ## Features
 
