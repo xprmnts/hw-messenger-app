@@ -2,6 +2,7 @@
 
 A one-to-one realtime chat app.
 
+[Live Demo](https://hw-messenger-app.herokuapp.com/home)
 [Preview Video](https://youtu.be/v4DPjOQmzQM)
 
 ## Features
